@@ -1,0 +1,91 @@
+- hosts: localhost
+  vars:
+    pipeline_env:
+        - { name: "{{ project_name }}", python_version: 3.6.1, pkgs: 'pip' }
+    pipeline_dir: "{{ project_dir }}/{{ project_name }}"
+
+  tasks:
+    - name: Create directory
+      file: state=directory path={{ item }} mode=0770
+      with_items:
+      - "{{ pipeline_dir }}"
+
+    - name: create virtual environment
+      shell: "conda create --yes -q -n {{ item.name }} \
+             python={{ item.python_version }} {{ item.pkgs }} \
+             creates={{ miniconda_dir }}/envs/{{ item.name }} "
+      with_items:
+      - "{{ pipeline_env }}"
+
+    - name: install pipeline from repository
+      git:
+        repo: "{{ pipeline_url }}"
+        dest: "{{ pipeline_dir }}/repo/{{ pipeline_label }}"
+        version: master
+        force: yes
+
+    - name: save git repo url
+      shell: "echo {{ pipeline_url }} > {{ pipeline_dir }}/.git_repo_last_commit"
+
+    - name: save last commit id from git repo
+      shell: "git ls-remote {{ pipeline_url }} refs/heads/master >> {{ pipeline_dir }}/.git_repo_last_commit"
+
+    - name: copy pipeline
+      shell: "cp -r * {{ pipeline_dir }}"
+      args:
+        chdir: "{{ pipeline_dir }}/repo/{{ pipeline_label }}"
+
+    - name: remove repo dir
+      file:
+        path: "{{ pipeline_dir }}/repo"
+        state: absent
+
+    - name: install pipeline requirements
+      shell: "conda install -n {{ item.name }} \
+             --file {{ pipeline_dir }}/requirements.txt"
+      with_items:
+      - "{{ pipeline_env }}"
+
+    - name: chmod run script
+      file: path="{{ pipeline_dir }}/run.project.sh" mode=0750
+
+    - name: replace several strings into run script
+      replace:
+        dest: "{{ pipeline_dir }}/run.project.sh"
+        regexp: "{{ item.reg }}"
+        replace: "{{ item.rep }}"
+      with_items:
+      - { reg: '_project_name_', rep: "{{ project_name }}" }
+
+    - name: replace several strings into Snakefile
+      replace:
+        dest: "{{ pipeline_dir }}/Snakefile"
+        regexp: "{{ item.reg }}"
+        replace: "{{ item.rep }}"
+      with_items:
+      - { reg: 'email_address', rep: "{{ project_email_address }}" }
+
+    - name: replace path_to_references_data into config.x.json
+      replace:
+        dest: "{{ pipeline_dir }}/{{ item }}"
+        regexp: 'path_to_references_data'
+        replace: "{{ references_dir }}"
+      with_items:
+      - "config.test.data.json"
+
+    - name: replace path_to_datasets into config.test.data.json
+      replace:
+        dest: "{{ pipeline_dir }}/config.test.data.json"
+        regexp: 'path_to_datasets'
+        replace: "{{ testdata_dir }}"
+
+    - name: rename cluster config file
+      shell: "mv {{ pipeline_dir }}/_cluster.json {{ pipeline_dir }}/cluster.json"
+      when: cluster_setup
+
+    - name: replace default_host_group into cluster.json
+      replace:
+        dest: "{{ pipeline_dir }}/cluster.json"
+        regexp: 'default_host_group'
+        replace: "{{ default_host_group }}"
+      when: cluster_setup

@@ -1,0 +1,16 @@
+pipelines:
+  dima:
+        label: 'dima'
+        description: 'Dima pipeline'
+        url: "https://github.com/gmauro/dima"
+        type: "git"
+        playbook: 'install_dima.yaml'
+  alta:
+        label: 'alta'
+        description: 'Alta pipeline'
+        url: "https://github.com/gmauro/alta"
+        type: "git"
+        playbook: 'install_alta.yaml'
+cluster:
+  setup: True
+  default_host_group: "cluster parameters"
