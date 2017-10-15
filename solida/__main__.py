@@ -1,14 +1,17 @@
 import argparse
-import sys
+import os
 
 from importlib import import_module
 
-from utils import a_logger, LOG_LEVELS
+from solida.utils import a_logger, LOG_LEVELS
+import solida.__version__
 
-CONFIG_FILE = "config/config.yaml"
+here = os.path.abspath(os.path.dirname(__file__))
+CONFIG_FILE = os.path.join(here, "config/config.yaml")
 SUBMOD_NAMES = [
-    "pipelines_manager",
-    "pipelines"
+    "solida.cli.list",
+    "solida.cli.pipeline",
+    "solida.cli.profiles"
 ]
 SUBMODULES = [import_module(n) for n in SUBMOD_NAMES]
 
@@ -28,6 +31,8 @@ class App(object):
                             help='log file (default=stderr).')
         parser.add_argument('--loglevel', type=str, help='logger level.',
                             choices=LOG_LEVELS, default='INFO')
+        parser.add_argument('-v', '--version', action='version',
+                            version='%(prog)s {}'.format(solida.__version__))
 
         subparsers = parser.add_subparsers(dest='subparser_name',
                                            title='subcommands',
@@ -42,14 +47,14 @@ class App(object):
         return parser
 
 
-def main(argv):
+def main():
     app = App()
     parser = app.make_parser()
-    args = parser.parse_args(argv)
+    args = parser.parse_args()
     logger = a_logger('Solida', level=args.loglevel, filename=args.logfile)
 
     args.func(logger, args)
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()

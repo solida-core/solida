@@ -11,8 +11,19 @@ class AnsibleWrapper(object):
     """
 
     """
-    def __init__(self, host, prj_path, prj_name, prj_email, pl, cconf,
+    def __init__(self, host, pipeline, profile,
                  playbooks_path='playbooks'):
+        def set_extra_vars(pipeline=None, profile=None):
+            extra_vars = dict()
+            if pipeline:
+                extra_vars['pipeline_label'] = pipeline['label']
+                extra_vars['pipeline_url'] = pipeline['url']
+            if profile:
+                for k, v in profile.items():
+                    extra_vars[k] = v
+
+            return extra_vars
+
         variable_manager = VariableManager()
         loader = DataLoader()
 
@@ -32,23 +43,10 @@ class AnsibleWrapper(object):
                               host_list=[host])
         variable_manager.set_inventory(inventory)
 
-        playbook_list = [os.path.join(playbooks_path, pl.playbook)]
+        playbook_list = [os.path.join(playbooks_path, pipeline['playbook'])]
 
-        extra_vars = {'miniconda_dir': '/tmp',
-                      'project_dir': prj_path,
-                      'pipeline_url': pl.url,
-                      'pipeline_label': pl.label}
-
-        if prj_name != '':
-            extra_vars['project_name'] = prj_name
-        if prj_email != '':
-            extra_vars['project_email_address'] = prj_email
-        if cconf:
-            extra_vars['cluster_setup'] = cconf['setup']
-            if cconf['setup']:
-                extra_vars['default_host_group'] = cconf['default_host_group']
-
-        variable_manager.extra_vars = extra_vars
+        variable_manager.extra_vars = set_extra_vars(pipeline=pipeline,
+                                                     profile=profile)
 
         self.pbex = PlaybookExecutor(playbooks=playbook_list,
                                      inventory=inventory,

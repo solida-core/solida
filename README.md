@@ -1,0 +1,2 @@
+# Solida
+NGS pipeline bootstrapper

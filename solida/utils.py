@@ -1,5 +1,6 @@
 import logging
 import os
+import shutil
 import sys
 
 LOG_LEVELS = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
@@ -36,3 +37,13 @@ def path_exists(path, logger, force=True):
         path,
         logger,
         force)
+
+
+def ensure_dir(path, force=False):
+    try:
+        if force and os.path.exists(path):
+            shutil.rmtree(path)
+        os.makedirs(path)
+    except OSError:
+        if not os.path.isdir(path):
+            raise

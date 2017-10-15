@@ -5,12 +5,18 @@ pipelines:
         url: "https://github.com/gmauro/dima"
         type: "git"
         playbook: 'install_dima.yaml'
+        playbook_vars_template:
+                project_name: 'noname_project'
+                project_email_address: 'example@example'
+                miniconda_dir: /path/to/miniconda
+                project_dir: /path/where/install/the/pipeline
+                references_dir: /path/to/references
+                testdata_dir: /path/to/testdata
+                cluster_setup: True
+                default_host_group: "cluster parameters"
   alta:
         label: 'alta'
         description: 'Alta pipeline'
         url: "https://github.com/gmauro/alta"
         type: "git"
         playbook: 'install_alta.yaml'
-cluster:
-  setup: True
-  default_host_group: "cluster parameters"
