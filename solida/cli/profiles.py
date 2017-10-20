@@ -46,6 +46,7 @@ def implementation(logger, args):
         stream = file(output, 'w')
         yaml.dump(pl.playbook_vars_template, stream, default_flow_style=False)
         logger.info("Created {} profile".format(output))
+        print("Edit variables value into the {} file".format(output))
         return
 
     list_profiles(profiles_path)
@@ -54,7 +55,7 @@ def implementation(logger, args):
 def list_profiles(profiles_path):
     print("In {} found:".format(profiles_path))
     for filename in os.listdir(profiles_path):
-        print "  - {}".format(filename)
+        print("  - {}".format(filename))
 
 
 def do_register(registration_list):
