@@ -12,6 +12,7 @@ pipelines:
                 project_dir: /path/where/install/the/pipeline
                 references_dir: /path/to/references
                 testdata_dir: /path/to/testdata
+                tmp_dir: path/to/tmp
                 cluster_setup: True
                 default_host_group: "cluster parameters"
   alta:
