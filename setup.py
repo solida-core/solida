@@ -1,5 +1,3 @@
-# Always prefer setuptools over distutils
-
 import os
 from setuptools import setup, find_packages
 
@@ -27,9 +25,7 @@ extra_files = [os.path.join(here, 'VERSION'),
 
 setup(
     name='solida',
-    # update `solida/__init__.py` as well
     version=__version__,
-
     description='NGS pipelines bootstrapper',
     long_description=long_description,
 
@@ -38,6 +34,7 @@ setup(
 
     # Author details
     author='The authors',
+    author_email='gmauro@crs4.it',
     # Choose your license
     license='BSD3',
 
@@ -47,7 +44,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
@@ -58,7 +55,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='NGS, pipelines, bioinformatics',
+    keywords='NGS, pipeline deployment, bioinformatics',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
@@ -71,6 +68,8 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=required,
+
+    python_requires='~=2.7',
 
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
