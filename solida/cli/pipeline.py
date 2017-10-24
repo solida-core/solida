@@ -20,7 +20,7 @@ def make_parser(parser):
     parser.add_argument('-i', '--install',
                         dest='install',
                         action='store_true',
-                        help="Install the pipeline")
+                        help="Trigger the pipeline's deployment")
     parser.add_argument('--host',
                         dest='host',
                         type=str,
