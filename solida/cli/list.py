@@ -1,4 +1,4 @@
-from solida.pipelines_manager import PipelinesManager
+from ..pipelines_manager import PipelinesManager
 
 
 help_doc = """

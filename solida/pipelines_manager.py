@@ -2,8 +2,8 @@ import sys
 
 #import pygit2
 
-from ansible_wrapper import AnsibleWrapper
-from config_manager import ConfigurationManager
+from .ansible_wrapper import AnsibleWrapper
+from .config_manager import ConfigurationManager
 
 
 class PipelinesManager(object):

@@ -3,7 +3,7 @@ import os
 
 from importlib import import_module
 
-from solida.utils import a_logger, LOG_LEVELS
+from .utils import a_logger, LOG_LEVELS
 import solida.__version__
 
 here = os.path.abspath(os.path.dirname(__file__))

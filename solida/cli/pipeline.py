@@ -1,9 +1,9 @@
 import os
 import yaml
 
-from solida.cli.profiles import PROFILES_PATH
-from solida.pipelines_manager import PipelinesManager
-from solida.utils import path_exists, ensure_dir
+from ..cli.profiles import PROFILES_PATH
+from ..pipelines_manager import PipelinesManager
+from ..utils import path_exists, ensure_dir
 
 help_doc = """
 Manage pipeline

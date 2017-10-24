@@ -17,10 +17,13 @@ with open(os.path.join(here, 'requirements.txt')) as f:
 with open(os.path.join(here, 'README.md')) as f:
     long_description = f.read()
 
-extra_files = [os.path.join(here, 'LICENSE'),
-               os.path.join(here, 'requirements.txt'),
-               os.path.join(here, 'VERSION'),
-               os.path.join(here, 'solida', 'config', 'config.yaml')]
+extra_files = [os.path.join(here, 'VERSION'),
+               os.path.join(here, 'solida', 'config', 'config.yaml'),
+               os.path.join(here, 'solida', 'playbooks',
+                            'install_pipeline.yaml'),
+               os.path.join(here, 'solida', 'playbooks',
+                            'templates', 'run.project.j2'),
+               ]
 
 setup(
     name='solida',
@@ -50,12 +53,12 @@ setup(
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
         'License :: OSI Approved :: BSD License',
         'Topic :: Utilities'
     ],
+
+    # What does your project relate to?
+    keywords='NGS, pipelines, bioinformatics',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().

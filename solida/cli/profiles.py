@@ -2,8 +2,8 @@ import os
 import sys
 import yaml
 
-from solida.pipelines_manager import PipelinesManager
-from solida.utils import path_exists, ensure_dir
+from ..pipelines_manager import PipelinesManager
+from ..utils import path_exists, ensure_dir
 
 PROFILES_PATH = os.path.expanduser('~/solida_profiles')
 
