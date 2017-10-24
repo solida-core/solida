@@ -43,7 +43,9 @@ class AnsibleWrapper(object):
                               host_list=[host])
         variable_manager.set_inventory(inventory)
 
-        playbook_list = [os.path.join(playbooks_path, pipeline['playbook'])]
+        here = os.path.abspath(os.path.dirname(__file__))
+        playbook_list = [os.path.join(here, playbooks_path,
+                                      pipeline['playbook'])]
 
         variable_manager.extra_vars = set_extra_vars(pipeline=pipeline,
                                                      profile=profile)
