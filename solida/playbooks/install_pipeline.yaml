@@ -60,16 +60,11 @@
       with_items:
       - "{{ pipeline_env }}"
 
-    - name: chmod run script
-      file: path="{{ pipeline_dir }}/run.project.sh" mode=0750
-
-    - name: replace several strings into run script
-      replace:
+    - name: copy run script
+      template:
+        src: "run.project.j2"
         dest: "{{ pipeline_dir }}/run.project.sh"
-        regexp: "{{ item.reg }}"
-        replace: "{{ item.rep }}"
-      with_items:
-      - { reg: '_project_name_', rep: "{{ project_name }}" }
+        mode: 0750
 
     - name: replace several strings into Snakefile
       replace:
