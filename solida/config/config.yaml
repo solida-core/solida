@@ -2,9 +2,9 @@ pipelines:
   dima:
         label: 'dima'
         description: 'Dima pipeline'
-        url: "https://github.com/gmauro/dima"
+        url: "https://bitbucket.org/biopipelines/dima"
         type: "git"
-        playbook: 'install_dima.yaml'
+        playbook: 'install_pipeline.yaml'
         playbook_vars_template:
                 project_name: 'noname_project'
                 project_email_address: 'example@example'

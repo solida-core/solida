@@ -89,28 +89,6 @@
       - { reg: 'path_to_datasets', rep: "{{ datasets_dir }}" }
       - { reg: 'path_to_tmp_dir', rep: "{{ tmp_dir }}" }
 
-#    - name: replace path_to_references_data into config.x.json
-#      replace:
-#        dest: "{{ pipeline_dir }}/{{ item }}"
-#        regexp: 'path_to_references_data'
-#        replace: "{{ references_dir }}"
-#      with_items:
-#      - "config.test.data.json"
-
-#    - name: replace path_to_datasets into config.test.data.json
-#      replace:
-#        dest: "{{ pipeline_dir }}/config.test.data.json"
-#        regexp: 'path_to_datasets'
-#        replace: "{{ testdata_dir }}"
-
-#    - name: replace path_to_tmp_dir into config.x.json
-#      replace:
-#        dest: "{{ exome_pipeline_dir }}/{{ item }}"
-#        regexp: 'path_to_tmp_dir'
-#        replace: "{{ tmp_dir }}"
-#      with_items:
-#      - "config.test.data.json"
-
     - name: rename cluster config file
       shell: "mv {{ pipeline_dir }}/_cluster.json {{ pipeline_dir }}/cluster.json"
       when: cluster_setup
