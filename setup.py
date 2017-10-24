@@ -30,10 +30,10 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/gmauro/solida',
+    url='https://bitbucket.org/biopipelines/solida',
 
     # Author details
-    author='The authors',
+    author='Gianmauro Cuccuru, CRS4',
     author_email='gmauro@crs4.it',
     # Choose your license
     license='BSD3',
@@ -51,7 +51,7 @@ setup(
         'Intended Audience :: Science/Research',
         'Programming Language :: Python :: 2.7',
         'License :: OSI Approved :: BSD License',
-        'Topic :: Utilities'
+        'Topic :: Scientific/Engineering :: Bio-Informatics'
     ],
 
     # What does your project relate to?
