@@ -74,6 +74,8 @@ then
           --printshellcmds \
           --cluster-config cluster.json \
           --max-jobs-per-second 1 \
+          --max-status-checks-per-second 10 \
+          --restart-times 3 \
           --cores 20 \
           --latency-wait 120 \
           --jobname ${SHORTNAME}".{rulename}.{jobid}.sh" \
