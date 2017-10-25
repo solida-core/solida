@@ -43,7 +43,7 @@ def implementation(logger, args):
         if path_exists(output, logger, force=False) and not args.force:
             logger.error("{} profile already exists".format(filename))
             sys.exit()
-        stream = file(output, 'w')
+        stream = open(output, 'w')
         yaml.dump(pl.playbook_vars_template, stream, default_flow_style=False)
         logger.info("Created {} profile".format(output))
         print("Edit variables value into the {} file".format(output))

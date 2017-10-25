@@ -23,8 +23,13 @@ class App(object):
             m.do_register(self.supported_submodules)
 
     def make_parser(self):
+        example_text = '''example:
+
+         solida list'''
         parser = argparse.ArgumentParser(prog='solida',
-                                         description='NGS pipelines bootstrapper')
+                                         description='NGS pipelines bootstrapper',
+                                         epilog=example_text,
+                                         formatter_class=argparse.RawDescriptionHelpFormatter)
         parser.add_argument('--config_file', type=str, metavar='PATH',
                             help='configuration file', default=CONFIG_FILE)
         parser.add_argument('--logfile', type=str, metavar='PATH',
@@ -53,7 +58,7 @@ def main():
     args = parser.parse_args()
     logger = a_logger('Solida', level=args.loglevel, filename=args.logfile)
 
-    args.func(logger, args)
+    args.func(logger, args) if hasattr(args, 'func') else parser.print_help()
 
 
 if __name__ == '__main__':

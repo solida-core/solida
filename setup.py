@@ -69,8 +69,6 @@ setup(
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=required,
 
-    python_requires='~=2.7',
-
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
     # pip to create the appropriate form of executable for the target platform.
