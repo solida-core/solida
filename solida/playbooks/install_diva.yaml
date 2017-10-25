@@ -20,3 +20,6 @@
 
   tasks:
     - include: common.yaml
+
+    - name: register GATK to copy it into your conda environment.
+      shell: "source activate {{ project_name }}; gatk-register {{ gatk_path }}"

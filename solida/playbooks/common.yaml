@@ -1,0 +1,77 @@
+---
+
+- name: Create directory
+  file: state=directory path={{ item }} mode=0770
+  with_items:
+  - "{{ pipeline_dir }}"
+
+- name: create virtual environment
+  shell: "conda create --yes -q -n {{ item.name }} \
+         python={{ item.python_version }} {{ item.pkgs }} \
+         creates={{ miniconda_dir }}/envs/{{ item.name }} "
+  with_items:
+  - "{{ pipeline_env }}"
+
+- name: install pipeline from repository
+  git:
+    repo: "{{ pipeline_url }}"
+    dest: "{{ pipeline_dir }}/repo/{{ pipeline_label }}"
+    version: master
+    force: yes
+
+- name: save git repo url
+  shell: "echo {{ pipeline_url }} > {{ pipeline_dir }}/.git_repo_last_commit"
+
+- name: save last commit id from git repo
+  shell: "git ls-remote {{ pipeline_url }} refs/heads/master >> {{ pipeline_dir }}/.git_repo_last_commit"
+
+- name: copy pipeline
+  shell: "cp -r * {{ pipeline_dir }}"
+  args:
+    chdir: "{{ pipeline_dir }}/repo/{{ pipeline_label }}"
+
+- name: remove repo dir
+  file:
+    path: "{{ pipeline_dir }}/repo"
+    state: absent
+
+- name: install pipeline requirements
+  shell: "conda install -n {{ item.name }} \
+         --file {{ pipeline_dir }}/requirements.txt"
+  with_items:
+  - "{{ pipeline_env }}"
+
+- name: copy run script
+  template:
+    src: "run.project.j2"
+    dest: "{{ pipeline_dir }}/run.project.sh"
+    mode: 0750
+
+- name: replace several strings into Snakefile
+  replace:
+    dest: "{{ pipeline_dir }}/Snakefile"
+    regexp: "{{ item.reg }}"
+    replace: "{{ item.rep }}"
+  with_items:
+  - { reg: 'email_address', rep: "{{ project_email_address }}" }
+
+- name: replace items into project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: "{{ item.reg }}"
+    replace: "{{ item.rep }}"
+  with_items:
+  - { reg: 'path_to_references_data', rep: "{{ references_dir }}" }
+  - { reg: 'path_to_datasets', rep: "{{ datasets_dir }}" }
+  - { reg: 'path_to_tmp_dir', rep: "{{ tmp_dir }}" }
+
+- name: rename cluster config file
+  shell: "mv {{ pipeline_dir }}/_cluster.json {{ pipeline_dir }}/cluster.json"
+  when: cluster_setup
+
+- name: replace default_host_group into cluster.json
+  replace:
+    dest: "{{ pipeline_dir }}/cluster.json"
+    regexp: 'default_host_group'
+    replace: "{{ default_host_group }}"
+  when: cluster_setup

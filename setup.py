@@ -18,7 +18,11 @@ with open(os.path.join(here, 'README.md')) as f:
 extra_files = [os.path.join(here, 'VERSION'),
                os.path.join(here, 'solida', 'config', 'config.yaml'),
                os.path.join(here, 'solida', 'playbooks',
+                            'common.yaml'),
+               os.path.join(here, 'solida', 'playbooks',
                             'install_pipeline.yaml'),
+               os.path.join(here, 'solida', 'playbooks',
+                            'install_diva.yaml'),
                os.path.join(here, 'solida', 'playbooks',
                             'templates', 'run.project.j2'),
                ]

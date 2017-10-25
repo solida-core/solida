@@ -24,7 +24,7 @@ pipelines:
         guide from BroadInstitute'
         url: "bitbucket.org:biopipelines/diva.git"
         type: "git"
-        playbook: 'install_pipeline.yaml'
+        playbook: 'install_diva.yaml'
         playbook_vars_template:
                 project_name: 'noname_project'
                 project_email_address: 'example@example'
