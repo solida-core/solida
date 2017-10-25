@@ -26,7 +26,7 @@ def make_parser(parser):
     parser.add_argument('-f', '--force',
                         dest='force',
                         action='store_true',
-                        help="Force profile write")
+                        help="Force profile writing")
 
 
 def implementation(logger, args):

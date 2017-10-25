@@ -10,8 +10,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 CONFIG_FILE = os.path.join(here, "config/config.yaml")
 SUBMOD_NAMES = [
     "solida.cli.list",
-    "solida.cli.pipeline",
-    "solida.cli.profiles"
+    "solida.cli.pipeline"
 ]
 SUBMODULES = [import_module(n) for n in SUBMOD_NAMES]
 

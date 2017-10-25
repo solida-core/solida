@@ -39,11 +39,7 @@ class PipelinesManager(object):
         else:
             msg = "Pipeline {} not found".format(label)
             self.logger.error(msg)
-            sys.exit()
 
-    # @property
-    # def get_cluster_config(self):
-    #     return self.cluster_conf
 
 
 class Pipeline(object):

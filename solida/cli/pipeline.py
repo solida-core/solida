@@ -17,20 +17,29 @@ def make_parser(parser):
                         help="Pipeline's label",
                         default=None,
                         required=True)
-    parser.add_argument('-i', '--install',
-                        dest='install',
+    parser.add_argument('-p', '--profile',
+                        dest='profile',
+                        type=str,
+                        help='Profile file label',
+                        default='',
+                        required=True)
+    parser.add_argument('--deploy',
+                        dest='deployment',
                         action='store_true',
                         help="Trigger the pipeline's deployment")
+    parser.add_argument('--create-profile',
+                        dest='create_profile',
+                        action='store_true',
+                        help="Trigger the profile's writing")
+    parser.add_argument('-f', '--force',
+                        dest='force',
+                        action='store_true',
+                        help="Force profile writing")
     parser.add_argument('--host',
                         dest='host',
                         type=str,
                         help='Hostname to install pipeline into',
                         default='localhost')
-    parser.add_argument('--profile',
-                        dest='profile',
-                        type=str,
-                        help='Profile file',
-                        default=None)
     parser.add_argument('--path',
                         dest='path',
                         type=str,
@@ -38,24 +47,65 @@ def make_parser(parser):
 
 
 def implementation(logger, args):
-    plm = PipelinesManager(args, logger)
-    pl = plm.get_pipeline(args.label)
+    def get_profile(profile_label, logger_):
+        ensure_dir(PROFILES_PATH)
+        filename, file_extension = os.path.splitext(profile_label)
+        profile_path = os.path.join(PROFILES_PATH, '{}.yaml'.format(filename))
 
-    profiles_path = PROFILES_PATH
-    ensure_dir(profiles_path)
-
-    if args.install:
-        if args.profile:
-            profile_path = os.path.join(profiles_path, args.profile)
+        if path_exists(profile_path, logger_, force=False):
+            logger.info("{} profile found".format(profile_path))
             with open(profile_path, 'r') as yaml_file:
                 profile = yaml.load(yaml_file)
-            host = args.host
-            if args.path and path_exists(args.path, logger, force=False):
-                profile['project_dir'] = args.path
+            return profile
+        logger.info("{} not found".format(profile_path))
+        return None
 
-            pl.instantiate(host, profile)
+    def write_profile(pl_, profile_label, logger_):
+        ensure_dir(PROFILES_PATH)
+        filename, file_extension = os.path.splitext(profile_label)
+        profile_path = os.path.join(PROFILES_PATH, '{}.yaml'.format(filename))
+        if path_exists(profile_path, logger_, force=False) and not args.force:
+            logger.error("{} profile already exists".format(profile_path))
+            # sys.exit()
         else:
-            logger.error('Need to indicate a profile.')
+            stream = open(profile_path, 'w')
+            yaml.dump(pl_.playbook_vars_template, stream,
+                      default_flow_style=False)
+            logger.info("Created {} profile".format(profile_path))
+            print("Edit variables value into the {} file".format(profile_path))
+        return
+
+    plm = PipelinesManager(args, logger)
+    pl = plm.get_pipeline(args.label)
+    profile = get_profile(args.profile, logger)
+
+    if args.create_profile and not args.deployment:
+        write_profile(pl, args.profile, logger)
+        return
+
+    if args.deployment and not args.create_profile:
+        if profile:
+            host = args.host
+            pl.instantiate(host, profile)
+            return
+        else:
+            logger.error('Profile not found. Have you created it?.')
+
+
+
+
+    # if args.deployment:
+    #     if args.profile:
+    #         profile_path = os.path.join(profiles_path, args.profile)
+    #         with open(profile_path, 'r') as yaml_file:
+    #             profile = yaml.load(yaml_file)
+    #         host = args.host
+    #         if args.path and path_exists(args.path, logger, force=False):
+    #             profile['project_dir'] = args.path
+    #
+    #         pl.instantiate(host, profile)
+    #     else:
+    #         logger.error('Need to indicate a profile.')
 
 
 def do_register(registration_list):

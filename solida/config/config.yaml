@@ -3,7 +3,7 @@ pipelines:
         label: 'dima'
         description: 'DiMA - Snakemake pipeline to map DNA datasets to a given reference
         genome using widely adopted tools as BWA and Samtools.'
-        url: "https://bitbucket.org/biopipelines/dima"
+        url: "bitbucket.org:biopipelines/dima.git"
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
@@ -22,7 +22,7 @@ pipelines:
         description: 'DiVA - Snakemake pipeline to identify genomic variants
         from exome data, using GATK variant calling following the best practices
         guide from BroadInstitute'
-        url: "https://bitbucket.org/biopipelines/diva"
+        url: "bitbucket.org:biopipelines/diva.git"
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
