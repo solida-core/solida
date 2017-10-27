@@ -27,7 +27,8 @@ class PipelinesManager(object):
 
     def show_pipeline(self, label):
         pl = Pipeline(self.conf[label])
-        print("   {} - {}".format(pl.label, pl.description))
+        print("  label: {} \n  description: {} \n".format(pl.label,
+                                                            pl.description))
 
     def get_pipeline(self, label):
         if self.__exist(label):

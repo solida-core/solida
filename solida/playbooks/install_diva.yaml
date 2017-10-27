@@ -10,6 +10,7 @@
     references_dir: /path/to/references
     datasets_dir: /path/to/testdata
     tmp_dir: /path/to/tmp
+    gatk_path: "path/to/software/GenomeAnalysisTK.jar"
     pipeline_dir: "{{ project_dir }}/{{ project_name }}"
     # cluster
     cluster_setup: True

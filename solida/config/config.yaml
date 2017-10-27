@@ -34,6 +34,7 @@ pipelines:
                 references_dir: /path/to/references
                 datasets_dir: /path/to/datasets
                 tmp_dir: path/to/tmp
+                gatk_path: "path/to/software/GenomeAnalysisTK.jar"
                 cluster_setup: True
                 default_host_group: "cluster parameters"
 

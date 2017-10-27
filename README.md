@@ -16,14 +16,14 @@ solida pipeline -l pipeline_label -p profile_label
 
 Before to deploy a pipeline, you need to be create a project profile:
 ```bash
-solida pipeline --create-profile -l pipeline_label -p profile_label 
+solida pipeline -l pipeline_label -p profile_label --create-profile 
 ```
 Solida will create a yaml file named _profile_label.yaml_ into _~/solida_profiles_  
 Edit the _profile_label.yaml_ to match your environment settings.
 
 After that, deploy the pipeline with:
 ```bash
-solida pipeline --deploy -l pipeline_label -p profile_label
+solida pipeline -l pipeline_label -p profile_label --deploy 
 ```
 
 ## Requirements

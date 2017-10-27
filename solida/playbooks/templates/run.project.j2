@@ -79,7 +79,7 @@ then
           --cores 20 \
           --latency-wait 120 \
           --jobname ${SHORTNAME}".{rulename}.{jobid}.sh" \
-          --jobs 64 \
+          --jobs 4 \
           --drmaa ' -S /bin/bash {cluster.hosts_group} -w n -b y -V ' \
           --drmaa-log-dir "logs/jobs" \
           ${SM_PARAMETERS}
