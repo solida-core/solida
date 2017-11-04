@@ -3,7 +3,7 @@ pipelines:
         label: 'dima'
         description: 'DiMA - Snakemake pipeline to map DNA datasets to a given reference
         genome using widely adopted tools as BWA and Samtools.'
-        url: "bitbucket.org:biopipelines/dima.git"
+        url: "https://github.com/gmauro/dima"
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:

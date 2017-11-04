@@ -12,3 +12,5 @@ script:
   - solida -v
   - solida list
   - solida pipeline -l dima -p dima
+  - solida pipeline -l dima -p dima --create-profile
+  - solida pipeline -l dima -p dima --deploy
