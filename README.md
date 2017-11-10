@@ -1,4 +1,4 @@
-# Solida
+# Solida [![Build Status](https://travis-ci.org/gmauro/solida.svg?branch=master)](https://travis-ci.org/gmauro/solida)
 NGS pipelines bootstrapper
 
 ## Usage

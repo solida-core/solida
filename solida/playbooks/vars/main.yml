@@ -1,0 +1,18 @@
+# project related vars
+project_name: 'noname_project'
+project_email_address: 'example@example'
+project_config_file: 'config.test.data.json'
+# Paths
+miniconda_dir: /path/to/miniconda
+project_dir: /path/where/install/the/pipeline
+references_dir: /path/to/references
+datasets_dir: /path/to/testdata
+tmp_dir: /path/to/tmp
+pipeline_dir: "{{ project_dir }}/{{ project_name }}"
+# cluster
+cluster_setup: True
+default_host_group: "cluster parameters"
+# Venv
+create_venv: True
+pipeline_env:
+    - { name: "{{ project_name }}", python_version: 3.6.1, pkgs: 'pip' }
