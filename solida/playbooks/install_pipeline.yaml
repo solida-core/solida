@@ -1,5 +1,5 @@
 - hosts: localhost
-  vars_file:
+  vars_files:
     - /vars/main.yml
   tasks:
     - include_tasks: common.yaml
