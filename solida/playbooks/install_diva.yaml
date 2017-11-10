@@ -2,7 +2,7 @@
   vars:
     gatk_path: "path/to/software/GenomeAnalysisTK.jar"
   vars_file:
-    - /vars/main.yml
+    - vars/main.yml
   tasks:
     - include_tasks: common.yaml
 
