@@ -1,6 +1,4 @@
 - hosts: localhost
-  vars:
-
   vars_file:
     - /vars/main.yml
   tasks:
