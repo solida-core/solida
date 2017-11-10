@@ -25,6 +25,8 @@ extra_files = [os.path.join(here, 'VERSION'),
                             'install_diva.yaml'),
                os.path.join(here, 'solida', 'playbooks',
                             'templates', 'run.project.j2'),
+               os.path.join(here, 'solida', 'playbooks',
+                            'vars', 'main.yaml'),
                ]
 
 setup(

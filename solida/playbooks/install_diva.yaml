@@ -1,8 +1,8 @@
 - hosts: localhost
   vars:
     gatk_path: "path/to/software/GenomeAnalysisTK.jar"
-  vars_file:
-    - vars/main.yml
+  vars_files:
+    - vars/main.yaml
   tasks:
     - include_tasks: common.yaml
 
