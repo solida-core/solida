@@ -7,6 +7,7 @@ pipelines:
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
+                create_venv: True
                 project_name: 'noname_project'
                 project_email_address: 'example@example'
                 project_config_file: 'config.test.data.json'
@@ -26,6 +27,7 @@ pipelines:
         type: "git"
         playbook: 'install_diva.yaml'
         playbook_vars_template:
+                create_venv: True
                 project_name: 'noname_project'
                 project_email_address: 'example@example'
                 project_config_file: 'config.test.data.json'

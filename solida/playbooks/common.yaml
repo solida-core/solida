@@ -11,6 +11,7 @@
          creates={{ miniconda_dir }}/envs/{{ item.name }} "
   with_items:
   - "{{ pipeline_env }}"
+  when: create_venv
 
 - name: install pipeline from repository
   git:

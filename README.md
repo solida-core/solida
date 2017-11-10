@@ -1,7 +1,12 @@
 # Solida
-NGS pipeline bootstrapper
+NGS pipelines bootstrapper
 
 ## Usage
+
+To check version:
+```bash
+solida -v
+```
 
 To list all the pipelines enabled, digit
 ```bash
