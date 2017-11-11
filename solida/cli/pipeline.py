@@ -3,7 +3,7 @@ import yaml
 
 from ..cli.profiles import PROFILES_PATH
 from ..pipelines_manager import PipelinesManager
-from ..utils import path_exists, ensure_dir
+from ..utils import path_exists, ensure_dir, is_tool
 
 help_doc = """
 Manage pipeline
@@ -84,28 +84,16 @@ def implementation(logger, args):
         return
 
     if args.deployment and not args.create_profile:
+        if not is_tool('conda'):
+            logger.error('Conda not found. Install it from '
+                         'https://conda.io/miniconda.html')
+            return
         if profile:
             host = args.host
             pl.instantiate(host, profile)
             return
         else:
             logger.error('Profile not found. Have you created it?.')
-
-
-
-
-    # if args.deployment:
-    #     if args.profile:
-    #         profile_path = os.path.join(profiles_path, args.profile)
-    #         with open(profile_path, 'r') as yaml_file:
-    #             profile = yaml.load(yaml_file)
-    #         host = args.host
-    #         if args.path and path_exists(args.path, logger, force=False):
-    #             profile['project_dir'] = args.path
-    #
-    #         pl.instantiate(host, profile)
-    #     else:
-    #         logger.error('Need to indicate a profile.')
 
 
 def do_register(registration_list):

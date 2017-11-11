@@ -38,6 +38,9 @@
 
 - name: install pipeline requirements
   shell: "conda install -n {{ item.name }} \
+         -c bioconda \
+         -c conda-forge \
+         -c defaults \
          --file {{ pipeline_dir }}/requirements.txt"
   with_items:
   - "{{ pipeline_env }}"

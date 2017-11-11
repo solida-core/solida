@@ -1,6 +1,7 @@
 import logging
 import os
 import shutil
+import subprocess
 import sys
 
 LOG_LEVELS = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
@@ -47,3 +48,15 @@ def ensure_dir(path, force=False):
     except OSError:
         if not os.path.isdir(path):
             raise
+
+
+# https://stackoverflow.com/questions/11210104/check-if-a-program-exists-from-a-python-script/11210902#11210902
+def is_tool(name):
+    try:
+        devnull = open(os.devnull, 'w')
+        subprocess.Popen([name], stdout=devnull, stderr=devnull).communicate()
+    except OSError as e:
+        if e.errno == os.errno.ENOENT:
+            return False
+    return True
+

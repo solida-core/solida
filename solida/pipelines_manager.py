@@ -79,20 +79,6 @@ class Pipeline(object):
                   'playbook': self.playbook}
         return myconf
 
-    # def get_source(self, path):
-    #     """
-    #     Retrieve pipeline's source code
-    #     :param path: destination path
-    #     :return: True if succeed, otherwise False
-    #     """
-    #     if self.type == 'git':
-    #         try:
-    #             pygit2.clone_repository(self.url, path)
-    #         except pygit2.GitError as e:
-    #             sys.exit(e)
-    #         return True
-    #     return False
-
     def instantiate(self, host, profile):
         msg = "Instantiating {0} into {1}/{2}".format(self.label,
                                                       profile['project_dir'],
