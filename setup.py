@@ -12,7 +12,7 @@ with open(os.path.join(here, 'VERSION')) as f:
 with open(os.path.join(here, 'requirements.txt')) as f:
     required = f.read().splitlines()
 
-with open(os.path.join(here, 'README.md')) as f:
+with open(os.path.join(here, 'README.rst')) as f:
     long_description = f.read()
 
 extra_files = [os.path.join(here, 'VERSION'),
@@ -39,7 +39,7 @@ setup(
     url='https://bitbucket.org/biopipelines/solida',
 
     # Author details
-    author='Gianmauro Cuccuru, CRS4',
+    author='Gianmauro Cuccuru',
     author_email='gmauro@crs4.it',
     # Choose your license
     license='BSD3',
