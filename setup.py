@@ -42,7 +42,7 @@ setup(
     author='Gianmauro Cuccuru',
     author_email='gmauro@crs4.it',
     # Choose your license
-    license='BSD3',
+    license='GPLv3',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -58,7 +58,7 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: GNU General Public License v3',
         'Topic :: Scientific/Engineering :: Bio-Informatics'
     ],
 
