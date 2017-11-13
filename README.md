@@ -19,7 +19,7 @@ To check if both pipeline and profile are available, digit:
 solida pipeline -l pipeline_label -p profile_label
 ```
 
-Before to deploy a pipeline, you need to be create a project profile:
+Before to deploy a pipeline, you have to create a project profile:
 ```bash
 solida pipeline -l pipeline_label -p profile_label --create-profile 
 ```

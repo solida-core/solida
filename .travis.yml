@@ -1,37 +1,34 @@
 language: python
 python:
-    - 2.7
-    - 3.5
-    - 3.6
-
+- 2.7
+- 3.5
+- 3.6
 install:
-  - sudo apt-get update
-
-  # We do this conditionally because it saves us some downloading if the
-  # version is the same.
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
-      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
-    else
-      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
-    fi
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-
-  # Useful for debugging any issues with conda
-  - conda info -a
-
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
-  - source activate test-environment
-  - pip install -r requirements.txt
-
-  - python setup.py install
-
+- sudo apt-get update
+- if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+  -O miniconda.sh; else wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+  -O miniconda.sh; fi
+- bash miniconda.sh -b -p $HOME/miniconda
+- export PATH="$HOME/miniconda/bin:$PATH"
+- hash -r
+- conda config --set always_yes yes --set changeps1 no
+- conda update -q conda
+- conda info -a
+- conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
+- source activate test-environment
+- pip install -r requirements.txt
+- python setup.py install
 script:
-  - solida -v
-  - solida list
-  - solida pipeline -l dima -p dima
-  - solida pipeline -l dima -p dima --create-profile
-  - solida pipeline -l dima -p dima --deploy
+- solida -v
+- solida list
+- solida pipeline -l dima -p dima
+- solida pipeline -l dima -p dima --create-profile
+- solida pipeline -l dima -p dima --deploy
+deploy:
+  provider: pypi
+  user: gmauro
+  password:
+    secure: ZINdvYz878yWsLPsTU73jFXYBVJDoLdkQWdgmDomcDzGn8/Fj1W8SIutWZyxKROo9jddtjGAfzpbEkty43NO96gBUXErK57KWtEIebvXs+VeQXJUQnd2fCrheO5GSBbt7OdElcevOfjPrRvtv5B8cM1z605S0Y0T8Z+sXnnHwbPRV/7AjjSE/ve+nQ3HwP2SsPRvtOcm02deTbPcfKiAoDM2ZB+P97Z52xuV1sXbbilSuABeeAPt9u3JEmfblyRAvSgOHRPa8c6dn1DJAZ8fK/qWp0AIDzBzhA/KsW5b/4CqBPd8Illt9mubCrGzqkfqQ+LX0S9faO2w1yPHiCJcS/1PkI7Itu/MmTM7Ej6gRD2flEE55kn9c/Mbl5cNgPtqKPpAOQfgATLJXSq4+EY23iqUGkScTwuRrSYBSwqIbCKEItzus1qR7Tc/WvW5XZMAyeEOST2aqPFpqK8SXm0GNiuzYSmaQNhh7CUD2DuvILg3wHdTjlGXw5LwCFDE9OrIxTESHr+KAARJpjYipRef8cFtSGNNW0lsoKyftF7gE0FUSegWspMoI+rj1NC/VnG4w4h3pQc2NzTUqJV778EcjE93M6ZDp2o066HiPXB8+5FjGv+s19Jtlhu/Yaq0s+vmkaH5YBGAgRD3AAMTRiIiaa/OiInqvoT3kV9Ru6gOmoI=
+  on:
+    tags: true
+  distributions: bdist_wheel
