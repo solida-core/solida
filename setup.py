@@ -58,7 +58,7 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'License :: OSI Approved :: GNU General Public License v3',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Topic :: Scientific/Engineering :: Bio-Informatics'
     ],
 
