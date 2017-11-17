@@ -12,6 +12,7 @@ pipeline_dir: "{{ project_dir }}/{{ project_name }}"
 # cluster
 cluster_setup: True
 default_host_group: "cluster parameters"
+jobs: 4
 # Venv
 create_venv: True
 pipeline_env:

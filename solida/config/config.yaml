@@ -18,6 +18,7 @@ pipelines:
                 tmp_dir: path/to/tmp
                 cluster_setup: True
                 default_host_group: "cluster parameters"
+                jobs: 4
   diva:
         label: 'diva'
         description: 'DiVA - Snakemake pipeline to identify genomic variants
@@ -39,4 +40,5 @@ pipelines:
                 gatk_path: "path/to/software/GenomeAnalysisTK.jar"
                 cluster_setup: True
                 default_host_group: "cluster parameters"
+                jobs: 4
 

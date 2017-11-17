@@ -27,6 +27,8 @@ extra_files = [os.path.join(here, 'VERSION'),
                             'templates', 'run.project.j2'),
                os.path.join(here, 'solida', 'playbooks',
                             'vars', 'main.yaml'),
+               os.path.join(here, 'solida', 'playbooks',
+                            'vars', 'diva.yaml'),
                ]
 
 setup(
