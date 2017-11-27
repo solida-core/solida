@@ -1,0 +1,15 @@
+- hosts: localhost
+  vars_files:
+    - vars/main.yaml
+  tasks:
+    - include_tasks: common.yaml
+
+    - name: replace email_address strings into Snakefiles
+      replace:
+        dest: "{{ pipeline_dir }}/{{ item }}"
+        regexp: 'email_address'
+        replace: "{{ project_email_address }}"
+      with_items:
+      - "Snakefile.Kallisto"
+      - "Snakefile.Tophat"
+      - "Snakefile.Star"

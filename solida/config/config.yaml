@@ -41,4 +41,23 @@ pipelines:
                 cluster_setup: True
                 default_host_group: "cluster parameters"
                 jobs: 4
+  ride:
+        label: 'ride'
+        description: 'Snakemake enabled pipeline for quantifying abundances of transcripts from RNA-Seq data'
+        url: "bitbucket.org:biopipelines/ride.git"
+        type: "git"
+        playbook: 'install_ride.yaml'
+        playbook_vars_template:
+                create_venv: True
+                project_name: 'noname_project'
+                project_email_address: 'example@example'
+                project_config_file: 'config.test.data.json'
+                miniconda_dir: /path/to/miniconda
+                project_dir: /path/where/install/the/pipeline
+                references_dir: /path/to/references
+                datasets_dir: /path/to/datasets
+                tmp_dir: path/to/tmp
+                cluster_setup: True
+                default_host_group: "cluster parameters"
+                jobs: 4
 
