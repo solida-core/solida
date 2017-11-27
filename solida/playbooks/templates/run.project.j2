@@ -13,7 +13,7 @@ where:
     -p  snakemake parameters as \"--rerun-incomplete --dryrun --keep-going --restart-time\"
 "
 
-while getopts ':hc:w:s:' option; do
+while getopts ':hc:p:w:s:' option; do
   case "$option" in
     h) echo "$usage"
        exit
@@ -77,7 +77,7 @@ fi
 
 if [ -f 'cluster.json' ]
 then
-    snakemake --snakefile SNAKEFILE \
+    snakemake --snakefile ${SNAKEFILE} \
           --use-conda \
           --stats stats.json \
           --configfile ${CONFIG_FILEPATH} \
@@ -95,13 +95,13 @@ then
           --drmaa-log-dir "logs/jobs" \
           ${SM_PARAMETERS}
 else
-     snakemake --snakefile SNAKEFILE \
+    snakemake --snakefile ${SNAKEFILE} \
           --use-conda \
           --stats stats.json \
           --configfile ${CONFIG_FILEPATH} \
           --directory ${SM_WORK_DIR} \
           --printshellcmds \
-	  ${SM_PARAMETERS}
+	      ${SM_PARAMETERS}
 fi
  
           
