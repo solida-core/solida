@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.6.0] - 2017-11-27
+### Changed
+- Several bugs of the launcher have been fixed.
+
 ## [0.5.9] - 2017-11-27
 ### Added
 - Ansible setup for ride.
