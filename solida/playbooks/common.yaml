@@ -51,13 +51,11 @@
     dest: "{{ pipeline_dir }}/run.project.sh"
     mode: 0750
 
-- name: replace several strings into Snakefile
+- name: replace email_address strings into notify rule
   replace:
-    dest: "{{ pipeline_dir }}/Snakefile"
-    regexp: "{{ item.reg }}"
-    replace: "{{ item.rep }}"
-  with_items:
-  - { reg: 'email_address', rep: "{{ project_email_address }}" }
+    dest: "{{ pipeline_dir }}/rules/notify.rules"
+    regexp: 'email_address'
+    replace: "{{ project_email_address }}"
 
 - name: replace items into project configuration file
   replace:
