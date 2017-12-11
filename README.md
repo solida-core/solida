@@ -33,5 +33,5 @@ solida pipeline -l pipeline_label -p profile_label --deploy
 
 ## Requirements
 
-To run Solida, you need Conda.  
+To run Solida, Conda must be present in your computer.    
 To install it, see [https://conda.io/miniconda.html](https://conda.io/miniconda.html) 
