@@ -2,6 +2,10 @@
 
 ## [0.6.2] - 2017-12-19
 ### Changed
+- bugfix
+
+## [0.6.2] - 2017-12-19
+### Changed
 - By default, set the project name same as the profile name.
 - Ride deployment fixed.
 
