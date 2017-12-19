@@ -48,8 +48,6 @@ def make_parser(parser):
 
 def implementation(logger, args):
     def get_profile(profile_label, profile_path, logger_):
-        #ensure_dir(PROFILES_PATH)
-        #filename, file_extension = os.path.splitext(profile_label)
         file_path = os.path.join(profile_path, '{}.yaml'.format(profile_label))
 
         if path_exists(file_path, logger_, force=False):
@@ -61,8 +59,6 @@ def implementation(logger, args):
         return None
 
     def write_profile(pl_, profile_label, profile_path, logger_):
-        #ensure_dir(PROFILES_PATH)
-        #filename, file_extension = os.path.splitext(profile_label)
         file_path = os.path.join(profile_path, '{}.yaml'.format(profile_label))
         if path_exists(file_path, logger_, force=False) and not args.force:
             logger.error("{} profile already exists".format(file_path))
@@ -76,7 +72,8 @@ def implementation(logger, args):
         return
 
     profile_label, ext = os.path.splitext(args.label)
-    profile_path = ensure_dir(os.path.join(PROFILES_PATH, profile_label))
+    profile_path = os.path.join(PROFILES_PATH, profile_label)
+    ensure_dir(profile_path)
 
     plm = PipelinesManager(args, logger)
     pl = plm.get_pipeline(args.label)
