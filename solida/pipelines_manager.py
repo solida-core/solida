@@ -1,6 +1,4 @@
-import sys
-
-#import pygit2
+from copy import deepcopy
 
 from .ansible_wrapper import AnsibleWrapper
 from .config_manager import ConfigurationManager
@@ -42,11 +40,17 @@ class PipelinesManager(object):
             self.logger.error(msg)
 
 
-
 class Pipeline(object):
     def __init__(self, config, logger=None):
         self.config = config
         self.logger = logger
+
+    @property
+    def conf(self):
+        myconf = {'label': self.label,
+                  'url': self.url,
+                  'playbook': self.playbook}
+        return myconf
 
     @property
     def label(self):
@@ -68,16 +72,12 @@ class Pipeline(object):
     def playbook(self):
         return self.config['playbook']
 
-    @property
-    def playbook_vars_template(self):
-        return self.config['playbook_vars_template']
-
-    @property
-    def conf(self):
-        myconf = {'label': self.label,
-                  'url': self.url,
-                  'playbook': self.playbook}
-        return myconf
+    def playbook_vars_template(self, **kwargs):
+        pvt = deepcopy(self.config['playbook_vars_template'])
+        for kw in kwargs:
+            if kw in pvt:
+                pvt[kw] = kwargs[kw]
+        return pvt
 
     def instantiate(self, host, profile):
         msg = "Instantiating {0} into {1}/{2}".format(self.label,
@@ -86,5 +86,3 @@ class Pipeline(object):
         self.logger.info(msg)
         aw = AnsibleWrapper(host, self.conf, profile)
         aw.run()
-
-

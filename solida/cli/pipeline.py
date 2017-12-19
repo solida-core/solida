@@ -1,7 +1,7 @@
 import os
 import yaml
 
-from ..cli.profiles import PROFILES_PATH
+from ..cli import PROFILES_PATH
 from ..pipelines_manager import PipelinesManager
 from ..utils import path_exists, ensure_dir, is_tool
 
@@ -47,40 +47,43 @@ def make_parser(parser):
 
 
 def implementation(logger, args):
-    def get_profile(profile_label, logger_):
-        ensure_dir(PROFILES_PATH)
-        filename, file_extension = os.path.splitext(profile_label)
-        profile_path = os.path.join(PROFILES_PATH, '{}.yaml'.format(filename))
+    def get_profile(profile_label, profile_path, logger_):
+        #ensure_dir(PROFILES_PATH)
+        #filename, file_extension = os.path.splitext(profile_label)
+        file_path = os.path.join(profile_path, '{}.yaml'.format(profile_label))
 
-        if path_exists(profile_path, logger_, force=False):
-            logger.info("{} profile found".format(profile_path))
-            with open(profile_path, 'r') as yaml_file:
+        if path_exists(file_path, logger_, force=False):
+            logger.info("{} profile found".format(file_path))
+            with open(file_path, 'r') as yaml_file:
                 profile = yaml.load(yaml_file)
             return profile
-        logger.info("{} not found".format(profile_path))
+        logger.info("{} not found".format(file_path))
         return None
 
-    def write_profile(pl_, profile_label, logger_):
-        ensure_dir(PROFILES_PATH)
-        filename, file_extension = os.path.splitext(profile_label)
-        profile_path = os.path.join(PROFILES_PATH, '{}.yaml'.format(filename))
-        if path_exists(profile_path, logger_, force=False) and not args.force:
-            logger.error("{} profile already exists".format(profile_path))
+    def write_profile(pl_, profile_label, profile_path, logger_):
+        #ensure_dir(PROFILES_PATH)
+        #filename, file_extension = os.path.splitext(profile_label)
+        file_path = os.path.join(profile_path, '{}.yaml'.format(profile_label))
+        if path_exists(file_path, logger_, force=False) and not args.force:
+            logger.error("{} profile already exists".format(file_path))
             # sys.exit()
         else:
-            stream = open(profile_path, 'w')
-            yaml.dump(pl_.playbook_vars_template, stream,
-                      default_flow_style=False)
-            logger.info("Created {} profile".format(profile_path))
-            print("Edit variables value into the {} file".format(profile_path))
+            stream = open(file_path, 'w')
+            yaml.dump(pl_.playbook_vars_template(project_name=profile_label),
+                      stream, default_flow_style=False)
+            logger.info("Created {} profile".format(file_path))
+            print("Edit variables value into the {} file".format(file_path))
         return
+
+    profile_label, ext = os.path.splitext(args.label)
+    profile_path = ensure_dir(os.path.join(PROFILES_PATH, profile_label))
 
     plm = PipelinesManager(args, logger)
     pl = plm.get_pipeline(args.label)
-    profile = get_profile(args.profile, logger)
+    profile = get_profile(profile_label, profile_path, logger)
 
     if args.create_profile and not args.deployment:
-        write_profile(pl, args.profile, logger)
+        write_profile(pl, profile_label, profile_path, logger)
         return
 
     if args.deployment and not args.create_profile:
