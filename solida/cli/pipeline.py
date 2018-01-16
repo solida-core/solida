@@ -71,8 +71,8 @@ def implementation(logger, args):
             print("Edit variables value into the {} file".format(file_path))
         return
 
-    profile_label, ext = os.path.splitext(args.label)
-    profile_path = os.path.join(PROFILES_PATH, profile_label)
+    profile_label, ext = os.path.splitext(args.profile)
+    profile_path = os.path.join(PROFILES_PATH, args.label)
     ensure_dir(profile_path)
 
     plm = PipelinesManager(args, logger)
