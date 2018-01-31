@@ -3,8 +3,8 @@ import os
 
 from importlib import import_module
 
+from .__details__ import *
 from .utils import a_logger, LOG_LEVELS
-import solida.__version__
 
 here = os.path.abspath(os.path.dirname(__file__))
 CONFIG_FILE = os.path.join(here, "config/config.yaml")
@@ -25,7 +25,7 @@ class App(object):
         example_text = '''example:
 
          solida list'''
-        parser = argparse.ArgumentParser(prog='solida',
+        parser = argparse.ArgumentParser(prog=__appname__,
                                          description='NGS pipelines bootstrapper',
                                          epilog=example_text,
                                          formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -36,7 +36,7 @@ class App(object):
         parser.add_argument('--loglevel', type=str, help='logger level.',
                             choices=LOG_LEVELS, default='INFO')
         parser.add_argument('-v', '--version', action='version',
-                            version='%(prog)s {}'.format(solida.__version__))
+                            version='%(prog)s {}'.format(__version__))
 
         subparsers = parser.add_subparsers(dest='subparser_name',
                                            title='subcommands',

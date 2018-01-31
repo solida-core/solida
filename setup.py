@@ -4,6 +4,8 @@ from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 
+with open(os.path.join(here, 'APPNAME')) as f:
+    __appname__ = f.read().strip()
 
 with open(os.path.join(here, 'VERSION')) as f:
     __version__ = f.read().strip()
@@ -34,7 +36,7 @@ extra_files = [os.path.join(here, 'VERSION'),
                ]
 
 setup(
-    name='solida',
+    name=__appname__,
     version=__version__,
     description='NGS pipelines bootstrapper',
     long_description=long_description,
