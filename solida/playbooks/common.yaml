@@ -57,7 +57,7 @@
     regexp: 'email_address'
     replace: "{{ project_email_address }}"
 
-- name: replace items into project configuration file
+- name: replace paths into the project configuration file
   replace:
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"
     regexp: "{{ item.reg }}"
