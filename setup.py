@@ -18,6 +18,7 @@ with open(os.path.join(here, 'README.rst')) as f:
     long_description = f.read()
 
 extra_files = [os.path.join(here, 'VERSION'),
+               os.path.join(here, 'APPNAME'),
                os.path.join(here, 'solida', 'config', 'config.yaml'),
                os.path.join(here, 'solida', 'playbooks',
                             'common.yaml'),

@@ -1,9 +1,12 @@
 import os
 import yaml
 
+from appdirs import *
+
 from ..cli import PROFILES_PATH
 from ..pipelines_manager import PipelinesManager
 from ..utils import path_exists, ensure_dir, is_tool
+from solida.__details__ import __appname__
 
 help_doc = """
 Manage pipeline
@@ -72,7 +75,7 @@ def implementation(logger, args):
         return
 
     profile_label, ext = os.path.splitext(args.profile)
-    profile_path = os.path.join(PROFILES_PATH, args.label)
+    profile_path = os.path.join(user_data_dir(__appname__), args.label)
     ensure_dir(profile_path)
 
     plm = PipelinesManager(args, logger)
