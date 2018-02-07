@@ -1,11 +1,9 @@
-import os
 import yaml
 
 from appdirs import *
 
-from ..cli import PROFILES_PATH
-from ..pipelines_manager import PipelinesManager
-from ..utils import path_exists, ensure_dir, is_tool
+from solida.pipelines_manager import PipelinesManager
+from solida.utils import path_exists, ensure_dir, is_tool
 from solida.__details__ import __appname__
 
 help_doc = """
