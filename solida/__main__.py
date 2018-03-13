@@ -4,7 +4,7 @@ import os
 from importlib import import_module
 
 from .__details__ import *
-from .utils import a_logger, LOG_LEVELS
+from comoda import a_logger, LOG_LEVELS
 
 here = os.path.abspath(os.path.dirname(__file__))
 CONFIG_FILE = os.path.join(here, "config/config.yaml")

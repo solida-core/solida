@@ -1,7 +1,7 @@
 import os
 import yaml
 
-from .utils import path_exists
+from comoda import path_exists
 
 
 class ConfigurationManager(object):

@@ -3,7 +3,7 @@ import yaml
 from appdirs import *
 
 from solida.pipelines_manager import PipelinesManager
-from solida.utils import path_exists, ensure_dir, is_tool
+from comoda import path_exists, ensure_dir, is_tool_available
 from solida.__details__ import __appname__
 
 help_doc = """
@@ -85,7 +85,7 @@ def implementation(logger, args):
         return
 
     if args.deployment and not args.create_profile:
-        if not is_tool('conda'):
+        if not is_tool_available('conda'):
             logger.error('Conda not found. Install it from '
                          'https://conda.io/miniconda.html')
             return
