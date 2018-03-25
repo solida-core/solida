@@ -11,7 +11,7 @@ def make_parser(parser):
 
 
 def implementation(logger, args):
-    pm = PipelinesManager(args, logger)
+    pm = PipelinesManager(args)
     pm.show_pipelines()
 
 

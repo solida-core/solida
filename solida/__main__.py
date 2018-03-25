@@ -7,7 +7,7 @@ from .__details__ import *
 from comoda import a_logger, LOG_LEVELS
 
 here = os.path.abspath(os.path.dirname(__file__))
-CONFIG_FILE = os.path.join(here, "config/config.yaml")
+
 SUBMOD_NAMES = [
     "solida.cli.list",
     "solida.cli.pipeline"
@@ -30,7 +30,7 @@ class App(object):
                                          epilog=example_text,
                                          formatter_class=argparse.RawDescriptionHelpFormatter)
         parser.add_argument('--config_file', type=str, metavar='PATH',
-                            help='configuration file', default=CONFIG_FILE)
+                            help='Pipelines configuration file')
         parser.add_argument('--logfile', type=str, metavar='PATH',
                             help='log file (default=stderr).')
         parser.add_argument('--loglevel', type=str, help='logger level.',

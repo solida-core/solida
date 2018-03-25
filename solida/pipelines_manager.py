@@ -1,4 +1,5 @@
 from copy import deepcopy
+from comoda import a_logger
 
 from .ansible_wrapper import AnsibleWrapper
 from .config_manager import ConfigurationManager
@@ -8,10 +9,13 @@ class PipelinesManager(object):
     """
 
     """
-    def __init__(self, args=None, logger=None):
-        cm = ConfigurationManager(args=args, logger=logger)
+    def __init__(self, args=None):
+        path_from_cli = args.config_file if args.config_file else None
+        cm = ConfigurationManager(loglevel=args.loglevel,
+                                  path_from_cli=path_from_cli)
         self.conf = cm.get_pipelines_config
-        self.logger = logger
+        self.loglevel = args.loglevel
+        self.logger = a_logger(self.__class__.__name__, level=self.loglevel)
 
     def __exist(self, label):
         return label in self.conf
@@ -24,13 +28,13 @@ class PipelinesManager(object):
             self.show_pipeline(p)
 
     def show_pipeline(self, label):
-        pl = Pipeline(self.conf[label])
+        pl = Pipeline(self.conf[label], self.loglevel)
         print("  label: {} \n  description: {} \n".format(pl.label,
-                                                            pl.description))
+                                                          pl.description))
 
     def get_pipeline(self, label):
         if self.__exist(label):
-            pipeline = Pipeline(self.conf[label], self.logger)
+            pipeline = Pipeline(self.conf[label], self.loglevel)
             print("Solida pipelines found:")
             self.show_pipeline(label)
             self.logger.info("Pipeline {} information retrieved".format(label))
@@ -41,9 +45,9 @@ class PipelinesManager(object):
 
 
 class Pipeline(object):
-    def __init__(self, config, logger=None):
+    def __init__(self, config, loglevel='INFO'):
         self.config = config
-        self.logger = logger
+        self.logger = a_logger(self.__class__.__name__, level=loglevel)
 
     @property
     def conf(self):

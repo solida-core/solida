@@ -1,9 +1,9 @@
-import yaml
-
 from appdirs import *
 
 from solida.pipelines_manager import PipelinesManager
 from comoda import path_exists, ensure_dir, is_tool_available
+from comoda.yaml import dump, load
+
 from solida.__details__ import __appname__
 
 help_doc = """
@@ -53,8 +53,7 @@ def implementation(logger, args):
 
         if path_exists(file_path, logger_, force=False):
             logger.info("{} profile found".format(file_path))
-            with open(file_path, 'r') as yaml_file:
-                profile = yaml.load(yaml_file)
+            profile = load(file_path)
             return profile
         logger.info("{} not found".format(file_path))
         return None
@@ -65,9 +64,8 @@ def implementation(logger, args):
             logger.error("{} profile already exists".format(file_path))
             # sys.exit()
         else:
-            stream = open(file_path, 'w')
-            yaml.dump(pl_.playbook_vars_template(project_name=profile_label),
-                      stream, default_flow_style=False)
+            dump(pl_.playbook_vars_template(project_name=profile_label),
+                 file_path)
             logger.info("Created {} profile".format(file_path))
             print("Edit variables value into the {} file".format(file_path))
         return
@@ -76,7 +74,7 @@ def implementation(logger, args):
     profile_path = os.path.join(user_data_dir(__appname__), args.label)
     ensure_dir(profile_path)
 
-    plm = PipelinesManager(args, logger)
+    plm = PipelinesManager(args)
     pl = plm.get_pipeline(args.label)
     profile = get_profile(profile_label, profile_path, logger)
 
