@@ -1,12 +1,12 @@
 import argparse
-import os
 
+from appdirs import *
+from comoda import a_logger, LOG_LEVELS
 from importlib import import_module
 
 from .__details__ import *
-from comoda import a_logger, LOG_LEVELS
+from .cache_manager import CacheManager
 
-here = os.path.abspath(os.path.dirname(__file__))
 
 SUBMOD_NAMES = [
     "solida.cli.list",
@@ -32,7 +32,7 @@ class App(object):
         parser.add_argument('--config_file', type=str, metavar='PATH',
                             help='Pipelines configuration file')
         parser.add_argument('--logfile', type=str, metavar='PATH',
-                            help='log file (default=stderr).')
+                            help='log file', default=user_log_dir(__appname__))
         parser.add_argument('--loglevel', type=str, help='logger level.',
                             choices=LOG_LEVELS, default='INFO')
         parser.add_argument('-v', '--version', action='version',
@@ -56,6 +56,10 @@ def main():
     parser = app.make_parser()
     args = parser.parse_args()
     logger = a_logger('Solida', level=args.loglevel, filename=args.logfile)
+
+    # Copy git repos into cache
+    chm = CacheManager(args=args)
+    chm.clones()
 
     args.func(logger, args) if hasattr(args, 'func') else parser.print_help()
 

@@ -10,12 +10,13 @@ class PipelinesManager(object):
 
     """
     def __init__(self, args=None):
-        path_from_cli = args.config_file if args.config_file else None
-        cm = ConfigurationManager(loglevel=args.loglevel,
-                                  path_from_cli=path_from_cli)
-        self.conf = cm.get_pipelines_config
         self.loglevel = args.loglevel
-        self.logger = a_logger(self.__class__.__name__, level=self.loglevel)
+        self.logfile = args.logfile
+        self.logger = a_logger(self.__class__.__name__, level=self.loglevel,
+                               filename=self.logfile)
+        path_from_cli = args.config_file if args.config_file else None
+        cm = ConfigurationManager(args=args, path_from_cli=path_from_cli)
+        self.conf = cm.get_pipelines_config
 
     def __exist(self, label):
         return label in self.conf

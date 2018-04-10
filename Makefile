@@ -17,7 +17,7 @@ clean:
 dependencies: requirements.txt
 	pip install -r requirements.txt
 
-deploy:
+deploy: build
 	twine upload dist/*
 
 install: build

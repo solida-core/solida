@@ -27,7 +27,7 @@ class WeightedPath:
 
 
 class ConfigurationManager(object):
-    def __init__(self, loglevel='INFO',
+    def __init__(self, args=None,
                  path_from_cli=None,
                  path_from_package='config/config.yaml',
                  config_filename='config.yaml'):
@@ -35,11 +35,15 @@ class ConfigurationManager(object):
             _from_package = resource_filename(appname, src)
             copyfile(_from_package, dst)
 
-        logger = a_logger(self.__class__.__name__, level=loglevel)
+        self.loglevel = args.loglevel
+        self.logfile = args.logfile
+        logger = a_logger(self.__class__.__name__, level=self.loglevel,
+                          filename=self.logfile)
 
         config_dir = os.path.join(user_config_dir(__appname__))
         config_file_path = os.path.join(config_dir, config_filename)
 
+        # Create configuration file from default if needed
         if not path_exists(config_dir, logger, force=False):
             logger.info('Creating config dir {}'.format(config_dir))
             ensure_dir(config_dir)
