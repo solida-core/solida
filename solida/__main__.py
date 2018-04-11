@@ -1,7 +1,7 @@
 import argparse
 
 from appdirs import *
-from comoda import a_logger, LOG_LEVELS
+from comoda import a_logger, LOG_LEVELS, ensure_dir
 from importlib import import_module
 
 from .__details__ import *
@@ -55,7 +55,9 @@ def main():
     app = App()
     parser = app.make_parser()
     args = parser.parse_args()
-    logger = a_logger('Solida', level=args.loglevel, filename=args.logfile)
+    ensure_dir(os.path.dirname(args.logfile))
+    logger = a_logger('Main', level=args.loglevel, filename=args.logfile)
+    logger.info('Solida started')
 
     # Copy git repos into cache
     chm = CacheManager(args=args)
