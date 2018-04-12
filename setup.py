@@ -4,10 +4,10 @@ from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-with open(os.path.join(here, 'APPNAME')) as f:
+with open(os.path.join(here, 'solida', 'APPNAME')) as f:
     __appname__ = f.read().strip()
 
-with open(os.path.join(here, 'VERSION')) as f:
+with open(os.path.join(here, 'solida', 'VERSION')) as f:
     __version__ = f.read().strip()
 
 
@@ -20,8 +20,7 @@ with open(os.path.join(here, 'README.rst')) as f:
 extra_files = [os.path.join(here, 'VERSION'),
                os.path.join(here, 'APPNAME'),
                os.path.join(here, 'solida', 'config', 'config.yaml'),
-               os.path.join(here, 'solida', 'playbooks',
-                            'common.yaml'),
+               os.path.join(here, 'solida', 'playbooks', 'common.yaml'),
                os.path.join(here, 'solida', 'playbooks',
                             'install_pipeline.yaml'),
                os.path.join(here, 'solida', 'playbooks',

@@ -57,7 +57,7 @@ def main():
     args = parser.parse_args()
     ensure_dir(os.path.dirname(args.logfile))
     logger = a_logger('Main', level=args.loglevel, filename=args.logfile)
-    logger.info('Solida started')
+    logger.info('{} started'.format(__appname__.capitalize()))
 
     # Copy git repos into cache
     chm = CacheManager(args=args)

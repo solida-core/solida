@@ -1,6 +1,6 @@
-APPNAME=`cat APPNAME`
+APPNAME=`cat solida/APPNAME`
 TARGETS=build clean dependencies deploy install test uninstall
-VERSION=`cat VERSION`
+VERSION=`cat solida/VERSION`
 
 all:
 	@echo "Try one of: ${TARGETS}"
