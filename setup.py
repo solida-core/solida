@@ -17,7 +17,8 @@ with open(os.path.join(here, 'requirements.txt')) as f:
 with open(os.path.join(here, 'README.rst')) as f:
     long_description = f.read()
 
-extra_files = [os.path.join(here, 'solida', 'VERSION'),
+extra_files = [os.path.join(here, 'requirements.txt'),
+               os.path.join(here, 'solida', 'VERSION'),
                os.path.join(here, 'solida', 'APPNAME'),
                os.path.join(here, 'solida', 'config', 'config.yaml'),
                os.path.join(here, 'solida', 'playbooks', 'common.yaml'),
