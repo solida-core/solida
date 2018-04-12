@@ -51,11 +51,15 @@
     dest: "{{ pipeline_dir }}/run.project.sh"
     mode: 0750
 
-- name: replace email_address strings into notify rule
-  replace:
-    dest: "{{ pipeline_dir }}/rules/notify.rules"
-    regexp: 'email_address'
-    replace: "{{ project_email_address }}"
+- name: copy notify rule
+  template:
+    src: "notify.smk.j2"
+    dest: "{{ pipeline_dir }}/notify.smk"
+
+- name: include notify rule into the Snakefile
+  lineinfile:
+    path: "{{ pipeline_dir }}/Snakefile"
+    line: 'include: "notify.smk"'
 
 - name: replace paths into the project configuration file
   replace:
@@ -67,13 +71,13 @@
   - { reg: 'path_to_datasets', rep: "{{ datasets_dir }}" }
   - { reg: 'path_to_tmp_dir', rep: "{{ tmp_dir }}" }
 
-- name: rename cluster config file
-  shell: "mv {{ pipeline_dir }}/_cluster.json {{ pipeline_dir }}/cluster.json"
-  when: cluster_setup
-
-- name: replace default_host_group into cluster.json
-  replace:
-    dest: "{{ pipeline_dir }}/cluster.json"
-    regexp: 'default_host_group'
-    replace: "{{ default_host_group }}"
-  when: cluster_setup
+#- name: rename cluster config file
+#  shell: "mv {{ pipeline_dir }}/_cluster.json {{ pipeline_dir }}/cluster.json"
+#  when: cluster_setup
+#
+#- name: replace default_host_group into cluster.json
+#  replace:
+#    dest: "{{ pipeline_dir }}/cluster.json"
+#    regexp: 'default_host_group'
+#    replace: "{{ default_host_group }}"
+#  when: cluster_setup

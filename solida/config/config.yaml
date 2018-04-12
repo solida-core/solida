@@ -16,8 +16,8 @@ pipelines:
                 references_dir: /path/to/references
                 datasets_dir: /path/to/datasets
                 tmp_dir: path/to/tmp
-                cluster_setup: True
-                default_host_group: "cluster parameters"
+#                cluster_setup: True
+#                default_host_group: "cluster parameters"
                 jobs: 4
   ride:
         label: 'ride'
@@ -35,8 +35,8 @@ pipelines:
                 references_dir: /path/to/references
                 datasets_dir: /path/to/datasets
                 tmp_dir: path/to/tmp
-                cluster_setup: True
-                default_host_group: "cluster parameters"
+#                cluster_setup: True
+#                default_host_group: "cluster parameters"
                 jobs: 4
   sride:
         label: 'sride'
@@ -54,7 +54,7 @@ pipelines:
                 references_dir: /path/to/references
                 datasets_dir: /path/to/datasets
                 tmp_dir: path/to/tmp
-                cluster_setup: True
-                default_host_group: "cluster parameters"
+#                cluster_setup: True
+#                default_host_group: "cluster parameters"
                 jobs: 4
 

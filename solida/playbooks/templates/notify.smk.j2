@@ -1,0 +1,9 @@
+
+onstart:
+    shell("mail -s 'Workflow started' {{ project_email_address }} < {log}")
+
+onsuccess:
+    shell("mail -s 'Workflow finished, no error' {{ project_email_address }} < {log}")
+
+onerror:
+    shell("mail -s 'an error occurred' {{ project_email_address }} < {log}")
