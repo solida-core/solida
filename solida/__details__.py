@@ -1,10 +1,13 @@
-"""Read details from files."""
+"""Read details from files and set paths"""
 
 import os
 
+from appdirs import *
+
 
 here = os.path.abspath(os.path.dirname(__file__))
-__all__ = ['__appname__', '__version__']
+__all__ = ['__appname__', '__version__', 'cache_dir', 'config_dir',
+           'profile_dir', 'log_file']
 
 with open(os.path.join(os.path.dirname(here),
                        'solida', 'APPNAME')) as version_file:
@@ -13,3 +16,8 @@ with open(os.path.join(os.path.dirname(here),
 with open(os.path.join(os.path.dirname(here),
                        'solida', 'VERSION')) as version_file:
     __version__ = version_file.read().strip()
+
+cache_dir = user_cache_dir(__appname__)
+config_dir = user_config_dir(__appname__)
+profile_dir = user_data_dir(__appname__)
+log_file = user_log_dir(__appname__)

@@ -1,7 +1,6 @@
 from ..__details__ import *
 from ..pipelines_manager import PipelinesManager
 
-from appdirs import *
 
 help_doc = """
 Show Solida details
@@ -15,10 +14,10 @@ def make_parser(parser):
 def implementation(logger, args):
     print("{} {}\n".format(__appname__.capitalize(), __version__))
 
-    solida_path = {'cache dir': user_cache_dir(__appname__),
-                   'config dir': user_config_dir(__appname__),
-                   'profile dir': user_data_dir(__appname__),
-                   'log file': user_log_dir(__appname__)
+    solida_path = {'cache dir': cache_dir,
+                   'config dir': config_dir,
+                   'profile dir': profile_dir,
+                   'log file': log_file
                    }
     print("Paths: ")
     for k, v in solida_path.items():

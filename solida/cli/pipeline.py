@@ -1,10 +1,10 @@
-from appdirs import *
+import os
 
 from solida.pipelines_manager import PipelinesManager
 from comoda import path_exists, ensure_dir, is_tool_available
 from comoda.yaml import dump, load
 
-from solida.__details__ import __appname__
+from ..__details__ import profile_dir
 
 help_doc = """
 Manage pipeline
@@ -71,7 +71,7 @@ def implementation(logger, args):
         return
 
     profile_label, ext = os.path.splitext(args.profile)
-    profile_path = os.path.join(user_data_dir(__appname__), args.label)
+    profile_path = os.path.join(profile_dir, args.label)
     ensure_dir(profile_path)
 
     plm = PipelinesManager(args)

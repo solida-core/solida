@@ -1,11 +1,12 @@
-from appdirs import *
+import os
+
 from comoda import a_logger, ensure_dir, path_exists
 from comoda.yaml import load as load_config
 from functools import total_ordering
 from pkg_resources import resource_filename
 from shutil import copyfile
 
-from .__details__ import __appname__
+from .__details__ import __appname__, config_dir
 
 
 @total_ordering
@@ -40,13 +41,13 @@ class ConfigurationManager(object):
         logger = a_logger(self.__class__.__name__, level=self.loglevel,
                           filename=self.logfile)
 
-        config_dir = os.path.join(user_config_dir(__appname__))
-        config_file_path = os.path.join(config_dir, config_filename)
+        cfg_dir = os.path.join(config_dir)
+        config_file_path = os.path.join(cfg_dir, config_filename)
 
         # Create configuration file from default if needed
-        if not path_exists(config_dir, logger, force=False):
-            logger.info('Creating config dir {}'.format(config_dir))
-            ensure_dir(config_dir)
+        if not path_exists(cfg_dir, logger, force=False):
+            logger.info('Creating config dir {}'.format(cfg_dir))
+            ensure_dir(cfg_dir)
         if not path_exists(config_file_path, logger, force=False):
             logger.info('Copying default config file from {} package '
                         'resource'.format(__appname__))

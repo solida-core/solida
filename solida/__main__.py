@@ -1,6 +1,6 @@
 import argparse
+import os
 
-from appdirs import *
 from comoda import a_logger, LOG_LEVELS, ensure_dir
 from importlib import import_module
 
@@ -10,7 +10,8 @@ from .cache_manager import CacheManager
 
 SUBMOD_NAMES = [
     "solida.cli.info",
-    "solida.cli.pipeline"
+    "solida.cli.pipeline",
+    "solida.cli.refresh"
 ]
 SUBMODULES = [import_module(n) for n in SUBMOD_NAMES]
 
@@ -32,7 +33,7 @@ class App(object):
         parser.add_argument('--config_file', type=str, metavar='PATH',
                             help='Pipelines configuration file')
         parser.add_argument('--logfile', type=str, metavar='PATH',
-                            help='log file', default=user_log_dir(__appname__))
+                            help='log file', default=log_file)
         parser.add_argument('--loglevel', type=str, help='logger level.',
                             choices=LOG_LEVELS, default='INFO')
         parser.add_argument('-v', '--version', action='version',

@@ -1,6 +1,10 @@
+import os
+
 from copy import deepcopy
 from comoda import a_logger
+from git import Repo
 
+from .__details__ import cache_dir
 from .ansible_wrapper import AnsibleWrapper
 from .config_manager import ConfigurationManager
 
@@ -17,6 +21,7 @@ class PipelinesManager(object):
         path_from_cli = args.config_file if args.config_file else None
         cm = ConfigurationManager(args=args, path_from_cli=path_from_cli)
         self.conf = cm.get_pipelines_config
+        self.cache_dir = cache_dir
 
     def __exist(self, label):
         return label in self.conf
@@ -31,8 +36,15 @@ class PipelinesManager(object):
 
     def show_pipeline(self, label):
         pl = Pipeline(self.conf[label], self.loglevel)
-        print("  label: {} \n  description: {} \n".format(pl.label,
-                                                          pl.description))
+        print("  label: {}".format(pl.label))
+        print("  description: {}".format(pl.description))
+        repo_dir = os.path.join(self.cache_dir, label)
+        repo = Repo(repo_dir)
+        heads = repo.heads
+        master = heads.master
+        print("  url: {}".format(pl.url))
+        print("  commit id: {}".format(master.commit))
+        print("  ")
 
     def get_pipeline(self, label):
         if self.__exist(label):
