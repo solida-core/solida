@@ -25,6 +25,7 @@ class PipelinesManager(object):
         return self.__exist(label)
 
     def show_pipelines(self):
+        print("Workflows available: ")
         for p in self.conf.keys():
             self.show_pipeline(p)
 

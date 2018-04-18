@@ -9,7 +9,7 @@ from .cache_manager import CacheManager
 
 
 SUBMOD_NAMES = [
-    "solida.cli.list",
+    "solida.cli.info",
     "solida.cli.pipeline"
 ]
 SUBMODULES = [import_module(n) for n in SUBMOD_NAMES]
@@ -24,7 +24,7 @@ class App(object):
     def make_parser(self):
         example_text = '''example:
 
-         solida list'''
+         solida info'''
         parser = argparse.ArgumentParser(prog=__appname__,
                                          description='NGS pipelines bootstrapper',
                                          epilog=example_text,
