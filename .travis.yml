@@ -20,10 +20,10 @@ install:
 - python setup.py install
 script:
 - solida -v
-- solida list
-- solida pipeline -l dima -p dima
-- solida pipeline -l dima -p dima --create-profile
-- solida pipeline -l dima -p dima --deploy
+- solida info
+- solida setup -l dima -p dima
+- solida setup -l dima -p dima --create-profile
+- solida setup -l dima -p dima --deploy
 deploy:
   provider: pypi
   distributions: "sdist bdist_wheel"
