@@ -49,7 +49,7 @@ def make_parser(parser):
     parser.add_argument('--connection',
                         dest='connection',
                         type=str,
-                        help='connection', default='ssh')
+                        help='connection', default='local')
 
 
 def implementation(logger, args):
