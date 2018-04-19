@@ -1,6 +1,6 @@
 import os
 
-from comoda import a_logger, ensure_dir, path_is_empty
+from comoda import a_logger, ensure_dir, path_is_empty, path_exists
 from git import Repo
 
 from .__details__ import cache_dir
@@ -35,6 +35,12 @@ class CacheManager:
             with open(os.path.join(repo_dir, ".git_repo_last_commit"), 'w') as filename:
                 filename.write(pipeline.url)
                 filename.write("\ncommit id: {}".format(master.commit))
+
+            requirements_path = os.path.join(repo_dir, 'requirements.txt')
+            if not path_exists(requirements_path):
+                with open(requirements_path, 'w') as filename:
+                    filename.write('snakemake')
+
             print("commit id: {}".format(master.commit))
             print("Done.")
             self.logger.info('Cloned git repo at {} into {} '
