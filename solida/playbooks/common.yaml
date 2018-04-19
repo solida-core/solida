@@ -13,28 +13,11 @@
   - "{{ pipeline_env }}"
   when: create_venv
 
-- name: install pipeline from repository
-  git:
-    repo: "{{ pipeline_url }}"
-    dest: "{{ pipeline_dir }}/repo/{{ pipeline_label }}"
-    version: master
+- name: install pipeline from cache dir
+  copy:
+    src: "{{ pipeline_cache_path }}/"
+    dest: "{{ pipeline_dir }}"
     force: yes
-
-- name: save git repo url
-  shell: "echo {{ pipeline_url }} > {{ pipeline_dir }}/.git_repo_last_commit"
-
-- name: save last commit id from git repo
-  shell: "git ls-remote {{ pipeline_url }} refs/heads/master >> {{ pipeline_dir }}/.git_repo_last_commit"
-
-- name: copy pipeline
-  shell: "cp -r * {{ pipeline_dir }}"
-  args:
-    chdir: "{{ pipeline_dir }}/repo/{{ pipeline_label }}"
-
-- name: remove repo dir
-  file:
-    path: "{{ pipeline_dir }}/repo"
-    state: absent
 
 - name: install pipeline requirements
   shell: "conda install -n {{ item.name }} \

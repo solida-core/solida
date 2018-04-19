@@ -24,6 +24,7 @@ script:
 - solida setup -l dima -p dima
 - solida setup -l dima -p dima --create-profile
 - solida setup -l dima -p dima --deploy
+- solida refresh
 deploy:
   provider: pypi
   distributions: "sdist bdist_wheel"

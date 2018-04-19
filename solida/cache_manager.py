@@ -32,6 +32,9 @@ class CacheManager:
             repo = Repo(repo_dir)
             heads = repo.heads
             master = heads.master
+            with open(os.path.join(repo_dir, ".git_repo_last_commit"), 'w') as filename:
+                filename.write(pipeline.url)
+                filename.write("\ncommit id: {}".format(master.commit))
             print("commit id: {}".format(master.commit))
             print("Done.")
             self.logger.info('Cloned git repo at {} into {} '

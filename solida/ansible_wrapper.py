@@ -6,6 +6,8 @@ from ansible.vars.manager import VariableManager
 from ansible.inventory.manager import InventoryManager as Inventory
 from ansible.executor.playbook_executor import PlaybookExecutor
 
+from .__details__ import cache_dir
+
 
 class AnsibleWrapper(object):
     """
@@ -18,6 +20,8 @@ class AnsibleWrapper(object):
             if pipeline:
                 extra_vars['pipeline_label'] = pipeline['label']
                 extra_vars['pipeline_url'] = pipeline['url']
+                extra_vars['pipeline_cache_path'] = os.path.join(cache_dir,
+                                                                 pipeline['label'])
             if profile:
                 for k, v in profile.items():
                     extra_vars[k] = v
