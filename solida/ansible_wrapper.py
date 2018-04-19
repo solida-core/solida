@@ -11,7 +11,7 @@ class AnsibleWrapper(object):
     """
 
     """
-    def __init__(self, host, pipeline, profile,
+    def __init__(self, host, remote_user, connection, pipeline, profile,
                  playbooks_path='playbooks'):
         def set_extra_vars(pipeline=None, profile=None):
             extra_vars = dict()
@@ -27,18 +27,19 @@ class AnsibleWrapper(object):
         loader = DataLoader()
 
         Options = namedtuple('Options',
-                             ['connection', 'forks', 'become', 'become_method',
-                              'become_user', 'diff', 'check', 'listhosts',
-                              'listtasks', 'listtags', 'syntax', 'module_path'])
-        options = Options(connection='local', forks=100, become=None,
-                          become_method=None, become_user=None, diff=False,
-                          check=False, listhosts=False, listtasks=False,
-                          listtags=False, syntax=False, module_path="")
+                             ['connection', 'forks', 'remote_user', 'become',
+                              'become_method', 'become_user', 'diff', 'check',
+                              'listhosts', 'listtasks', 'listtags', 'syntax',
+                              'module_path'])
+        options = Options(connection=connection, forks=100, remote_user=remote_user,
+                          become=None, become_method=None, become_user=None,
+                          diff=False, check=False, listhosts=False,
+                          listtasks=False, listtags=False, syntax=False,
+                          module_path="")
 
         passwords = dict()
 
-        inventory = Inventory(loader=loader,
-                              sources=[host])
+        inventory = Inventory(loader=loader, sources="{},".format(host))
         variable_manager = VariableManager(loader=loader, inventory=inventory)
 
         here = os.path.abspath(os.path.dirname(__file__))

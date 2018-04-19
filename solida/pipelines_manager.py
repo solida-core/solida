@@ -1,4 +1,5 @@
 import os
+import sys
 
 from copy import deepcopy
 from comoda import a_logger
@@ -35,7 +36,8 @@ class PipelinesManager(object):
             self.show_pipeline(p)
 
     def show_pipeline(self, label):
-        pl = Pipeline(self.conf[label], self.loglevel)
+        pl = Pipeline(self.conf[label], loglevel=self.loglevel,
+                      logfile=self.logfile)
         print("  label: {}".format(pl.label))
         print("  description: {}".format(pl.description))
         repo_dir = os.path.join(self.cache_dir, label)
@@ -48,7 +50,8 @@ class PipelinesManager(object):
 
     def get_pipeline(self, label):
         if self.__exist(label):
-            pipeline = Pipeline(self.conf[label], self.loglevel)
+            pipeline = Pipeline(self.conf[label], loglevel=self.loglevel,
+                                logfile=self.logfile)
             print("Solida pipelines found:")
             self.show_pipeline(label)
             self.logger.info("Pipeline {} information retrieved".format(label))
@@ -59,9 +62,10 @@ class PipelinesManager(object):
 
 
 class Pipeline(object):
-    def __init__(self, config, loglevel='INFO'):
+    def __init__(self, config, loglevel='INFO', logfile=sys.stdout):
         self.config = config
-        self.logger = a_logger(self.__class__.__name__, level=loglevel)
+        self.logger = a_logger(self.__class__.__name__, level=loglevel,
+                               filename=logfile)
 
     @property
     def conf(self):
@@ -97,10 +101,11 @@ class Pipeline(object):
                 pvt[kw] = kwargs[kw]
         return pvt
 
-    def instantiate(self, host, profile):
+    def instantiate(self, host, remote_user, connection, profile):
         msg = "Instantiating {0} into {1}/{2}".format(self.label,
                                                       profile['project_dir'],
                                                       profile['project_name'])
+        print(msg)
         self.logger.info(msg)
-        aw = AnsibleWrapper(host, self.conf, profile)
+        aw = AnsibleWrapper(host, remote_user, connection, self.conf, profile)
         aw.run()

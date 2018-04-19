@@ -7,7 +7,7 @@ from comoda.yaml import dump, load
 from ..__details__ import profile_dir
 
 help_doc = """
-Manage pipeline
+Setup pipeline
 """
 
 
@@ -39,12 +39,17 @@ def make_parser(parser):
     parser.add_argument('--host',
                         dest='host',
                         type=str,
-                        help='Hostname to install pipeline into',
+                        help='Network name of the host where the '
+                             'pipeline has to be installed',
                         default='localhost')
-    parser.add_argument('--path',
-                        dest='path',
+    parser.add_argument('--remote-user',
+                        dest='remote_user',
                         type=str,
-                        help='Local path to install pipeline into')
+                        help='remote user')
+    parser.add_argument('--connection',
+                        dest='connection',
+                        type=str,
+                        help='connection', default='ssh')
 
 
 def implementation(logger, args):
@@ -52,10 +57,12 @@ def implementation(logger, args):
         file_path = os.path.join(profile_path, '{}.yaml'.format(profile_label))
 
         if path_exists(file_path, logger_, force=False):
-            logger.info("{} profile found".format(file_path))
+            msg = "Profile found at {}".format(file_path)
+            print(msg)
+            logger.info(msg)
             profile = load(file_path)
             return profile
-        logger.info("{} not found".format(file_path))
+        logger.info("Profile not found at {}".format(file_path))
         return None
 
     def write_profile(pl_, profile_label, profile_path, logger_):
@@ -89,12 +96,14 @@ def implementation(logger, args):
             return
         if profile:
             host = args.host
-            pl.instantiate(host, profile)
+            remote_user = args.remote_user
+            connection = args.connection
+            pl.instantiate(host, remote_user, connection, profile)
             return
         else:
             logger.error('Profile not found. Have you created it?.')
 
 
 def do_register(registration_list):
-    registration_list.append(('pipeline', help_doc, make_parser,
+    registration_list.append(('setup', help_doc, make_parser,
                               implementation))

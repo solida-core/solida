@@ -10,7 +10,7 @@ from .cache_manager import CacheManager
 
 SUBMOD_NAMES = [
     "solida.cli.info",
-    "solida.cli.pipeline",
+    "solida.cli.setup",
     "solida.cli.refresh"
 ]
 SUBMODULES = [import_module(n) for n in SUBMOD_NAMES]

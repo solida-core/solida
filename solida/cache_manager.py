@@ -22,7 +22,8 @@ class CacheManager:
         ensure_dir(self.cache_dir)
 
     def clone(self, label):
-        pipeline = Pipeline(self.conf[label], self.loglevel)
+        pipeline = Pipeline(self.conf[label], loglevel=self.loglevel,
+                            logfile=self.logfile)
         repo_dir = os.path.join(self.cache_dir, label)
         ensure_dir(repo_dir)
         if path_is_empty(repo_dir):
