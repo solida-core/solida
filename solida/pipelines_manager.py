@@ -52,12 +52,13 @@ class PipelinesManager(object):
         if self.__exist(label):
             pipeline = Pipeline(self.conf[label], loglevel=self.loglevel,
                                 logfile=self.logfile)
-            print("Solida pipelines found:")
+            print("Pipeline found:")
             self.show_pipeline(label)
             self.logger.info("Pipeline {} information retrieved".format(label))
             return pipeline
         else:
             msg = "Pipeline {} not found".format(label)
+            print(msg)
             self.logger.error(msg)
 
 
