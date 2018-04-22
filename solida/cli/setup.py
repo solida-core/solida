@@ -91,8 +91,10 @@ def implementation(logger, args):
 
     if args.deployment and not args.create_profile:
         if not is_tool_available('conda'):
-            logger.error('Conda not found. Install it from '
-                         'https://conda.io/miniconda.html')
+            msg = 'Conda not found. Install it from ' \
+                  'https://conda.io/miniconda.html'
+            print(msg)
+            logger.error(msg)
             return
         if profile:
             host = args.host
@@ -100,8 +102,10 @@ def implementation(logger, args):
             connection = args.connection
             pl.instantiate(host, remote_user, connection, profile)
             return
-        else:
-            logger.error('Profile not found. Have you created it?.')
+    if not profile:
+        msg = 'Profile "{}" not found. Have you created it?'.format(profile_label)
+        print(msg)
+        logger.error(msg)
 
 
 def do_register(registration_list):
