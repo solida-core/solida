@@ -1,43 +1,78 @@
 pipelines:
   dima:
         label: 'dima'
-        description: 'DiMA - Snakemake pipeline to map DNA datasets to a given reference
-        genome using widely adopted tools as BWA and Samtools.'
-        url: "https://github.com/gmauro/dima"
+        description: 'Pipeline to map DNA datasets to a given reference
+        genome using widely adopted tools such as BWA and Samtools.'
+        url: "https://bitbucket.org/biopipelines/dima.git"
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
+        # flags to activate specific tasks
                 create_venv: True
+                include_notify: True
+        # Pipeline dependencies
+                project_environment_file: environment.yml
+        # Project vars
                 project_name: 'noname_project'
                 project_email_address: 'example@example'
                 project_config_file: 'config.test.data.json'
-                miniconda_dir: /path/to/miniconda
-                project_dir: /path/where/install/the/pipeline
-                references_dir: /path/to/references
-                datasets_dir: /path/to/datasets
-                tmp_dir: path/to/tmp
-#                cluster_setup: True
-#                default_host_group: "cluster parameters"
-                jobs: 4
+        # Paths
+                project_dir: /path/where/install/the/pipeline # required
+                references_dir: /path/to/references           # optional
+                datasets_dir: /path/to/datasets               # optional
+                tmp_dir: path/to/tmp                          # optional
+        # Snakemake related
+                snakefile: Snakefile                          # required
+                jobs: 2
+  viper:
+        label: 'viper'
+        description: 'Visualization Pipeline for RNA-Seq data'
+        url: "https://bitbucket.org/cfce/viper.git"
+        type: "git"
+        playbook: 'install_pipeline.yaml'
+        playbook_vars_template:
+        # flags to activate specific tasks
+                create_venv: True
+                include_notify: True
+        # Pipeline dependencies
+                project_environment_file: envs/environment.yml
+        # Project vars
+                project_name: 'noname_project'
+                project_email_address: 'example@example'
+                project_config_file: 'config.yaml'
+        # Paths
+                project_dir: /path/where/install/the/pipeline # required
+                references_dir: /path/to/references           # optional
+                datasets_dir: /path/to/datasets               # optional
+                tmp_dir: path/to/tmp                          # optional
+        # Snakemake related
+                snakefile: viper.snakefile
+                jobs: 2
   ride:
         label: 'ride'
-        description: 'Snakemake enabled pipeline for quantifying abundances of transcripts from RNA-Seq data'
+        description: 'Pipeline to quantify abundances of transcripts from
+        RNA-Seq data'
         url: "https://bitbucket.org/biopipelines/ride.git"
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
+        # flags to activate specific tasks
                 create_venv: True
+                include_notify: True
+        # Pipeline dependencies
+                project_environment_file: environment.yml
+        # Project vars
                 project_name: 'noname_project'
                 project_email_address: 'example@example'
                 project_config_file: 'config.test.data.json'
-                miniconda_dir: /path/to/miniconda
-                project_dir: /path/where/install/the/pipeline
-                references_dir: /path/to/references
-                datasets_dir: /path/to/datasets
-                tmp_dir: path/to/tmp
-#                cluster_setup: True
-#                default_host_group: "cluster parameters"
-                jobs: 4
+        # Paths
+                project_dir: /path/where/install/the/pipeline # required
+                references_dir: /path/to/references           # optional
+                datasets_dir: /path/to/datasets               # optional
+                tmp_dir: path/to/tmp                          # optional
+        # Snakemake related
+                snakefile: Snakefile
+                jobs: 2
   sride:
         label: 'sride'
         description: 'Snakemake enabled pipeline for smallRNA-Seq identification'
@@ -45,16 +80,72 @@ pipelines:
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
+                # flags to activate specific tasks
                 create_venv: True
+                include_notify: True
+        # Pipeline dependencies
+                project_environment_file: environment.yml
+        # Project vars
                 project_name: 'noname_project'
                 project_email_address: 'example@example'
                 project_config_file: 'config.testdata.yaml'
-                miniconda_dir: /path/to/miniconda
-                project_dir: /path/where/install/the/pipeline
-                references_dir: /path/to/references
-                datasets_dir: /path/to/datasets
-                tmp_dir: path/to/tmp
-#                cluster_setup: True
-#                default_host_group: "cluster parameters"
-                jobs: 4
+        # Paths
+                project_dir: /path/where/install/the/pipeline # required
+                references_dir: /path/to/references           # optional
+                datasets_dir: /path/to/datasets               # optional
+                tmp_dir: path/to/tmp                          # optional
+        # Snakemake related
+                snakefile: Snakefile
+                jobs: 2
+  sride_data:
+        label: 'sride_data'
+        description: 'Snakemake workflow to produce reference and test data
+        for smallRNA-Seq identification pipeline'
+        url: "https://bitbucket.org/biopipelines/sride_data.git"
+        type: "git"
+        playbook: 'install_pipeline.yaml'
+        playbook_vars_template:
+                # flags to activate specific tasks
+                create_venv: True
+                include_notify: True
+        # Pipeline dependencies
+                project_environment_file: environment.yml
+        # Project vars
+                project_name: 'noname_project'
+                project_email_address: 'example@example'
+                project_config_file: 'config.yaml'
+        # Paths
+                project_dir: /path/where/install/the/pipeline # required
+                references_dir: /path/to/references           # optional
+                datasets_dir: /path/to/datasets               # optional
+                tmp_dir: path/to/tmp                          # optional
+        # Snakemake related
+                snakefile: Snakefile
+                jobs: 2
+  rna-seq-star-deseq2:
+        label: 'rna-seq-star-deseq2'
+        description: 'RNA-seq workflow using STAR and DESeq2'
+        url: "https://github.com/snakemake-workflows/rna-seq-star-deseq2"
+        type: "git"
+        playbook: 'install_pipeline.yaml'
+        playbook_vars_template:
+                # flags to activate specific tasks
+                create_venv: True
+                include_notify: True
+        # Pipeline dependencies
+                project_environment_file: environment.yml
+        # Project vars
+                project_name: 'noname_project'
+                project_email_address: 'example@example'
+                project_config_file: 'config.yaml'
+        # Paths
+                project_dir: /path/where/install/the/pipeline # required
+                references_dir: /path/to/references           # optional
+                datasets_dir: /path/to/datasets               # optional
+                tmp_dir: path/to/tmp                          # optional
+        # Snakemake related
+                snakefile: Snakefile
+                jobs: 2
+
+
 
