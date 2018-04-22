@@ -72,37 +72,20 @@ if [ -f "$SNAKE_FILE" ]
 then
    SNAKEFILE=$SNAKE_FILE
 else
-   SNAKEFILE='Snakefile'
+   SNAKEFILE="{{ snakefile }}"
 fi
 
-if [ -f 'cluster.json' ]
-then
-    snakemake --snakefile ${SNAKEFILE} \
-          --use-conda \
-          --stats stats.json \
-          --configfile ${CONFIG_FILEPATH} \
-          --directory ${SM_WORK_DIR} \
-          --printshellcmds \
-          --cluster-config cluster.json \
-          --max-jobs-per-second 1 \
-          --max-status-checks-per-second 10 \
-          --restart-times 3 \
-          --cores 20 \
-          --latency-wait 120 \
-          --jobname ${SHORTNAME}".{rulename}.{jobid}.sh" \
-          --jobs {{ jobs }} \
-          --drmaa ' -S /bin/bash {cluster.hosts_group} -w n -b y -V ' \
-          --drmaa-log-dir "logs/jobs" \
-          ${SM_PARAMETERS}
-else
-    snakemake --snakefile ${SNAKEFILE} \
-          --use-conda \
-          --stats stats.json \
-          --configfile ${CONFIG_FILEPATH} \
-          --directory ${SM_WORK_DIR} \
-          --printshellcmds \
-	      ${SM_PARAMETERS}
-fi
+snakemake --snakefile ${SNAKEFILE} \
+      --use-conda \
+      --stats "stats_"${SM_WORK_DIR}".json" \
+      --configfile ${CONFIG_FILEPATH} \
+      --directory ${SM_WORK_DIR} \
+      --printshellcmds \
+      --restart-times 3 \
+      --jobname ${SHORTNAME}".{rulename}.{jobid}.sh" \
+      --jobs {{ jobs }} \
+      ${SM_PARAMETERS}
+
  
           
 

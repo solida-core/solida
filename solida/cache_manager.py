@@ -1,6 +1,7 @@
 import os
 
 from comoda import a_logger, ensure_dir, path_is_empty, path_exists
+from comoda.yaml import dump
 from git import Repo
 
 from .__details__ import cache_dir
@@ -36,10 +37,17 @@ class CacheManager:
                 filename.write(pipeline.url)
                 filename.write("\ncommit id: {}".format(master.commit))
 
-            requirements_path = os.path.join(repo_dir, 'requirements.txt')
+            requirements_path = os.path.join(repo_dir, 'core_environment.yml')
             if not path_exists(requirements_path):
-                with open(requirements_path, 'w') as filename:
-                    filename.write('snakemake')
+                data = {'channels': ['bioconda', 'conda-forge', 'defaults'],
+                        'dependencies': ['python==3.6.1', 'pip']}
+                dump(data, requirements_path)
+
+            requirements_path = os.path.join(repo_dir, 'environment.yml')
+            if not path_exists(requirements_path):
+                data = {'channels': ['bioconda', 'conda-forge', 'defaults'],
+                        'dependencies': ['snakemake']}
+                dump(data, requirements_path)
 
             print("commit id: {}".format(master.commit))
             print("Done.")

@@ -68,7 +68,9 @@ def implementation(logger, args):
     def write_profile(pl_, profile_label, profile_path, logger_):
         file_path = os.path.join(profile_path, '{}.yaml'.format(profile_label))
         if path_exists(file_path, logger_, force=False) and not args.force:
-            logger.error("{} profile already exists".format(file_path))
+            msg = "{} profile already exists".format(file_path)
+            print(msg)
+            logger.error(msg)
             # sys.exit()
         else:
             dump(pl_.playbook_vars_template(project_name=profile_label),
@@ -103,7 +105,8 @@ def implementation(logger, args):
             pl.instantiate(host, remote_user, connection, profile)
             return
     if not profile:
-        msg = 'Profile "{}" not found. Have you created it?'.format(profile_label)
+        msg = 'Profile "{}" not found. Have you created it? \n' \
+              'Digit "solida setup --help" for more details'.format(profile_label)
         print(msg)
         logger.error(msg)
 

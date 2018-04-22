@@ -1,50 +1,50 @@
 ---
 
-- name: Create directory
+- name: Create pipeline directory
   file: state=directory path={{ item }} mode=0770
   with_items:
   - "{{ pipeline_dir }}"
 
-- name: create virtual environment
-  shell: "conda create --yes -q -n {{ item.name }} \
-         python={{ item.python_version }} {{ item.pkgs }} \
-         creates={{ miniconda_dir }}/envs/{{ item.name }} "
-  with_items:
-  - "{{ pipeline_env }}"
-  when: create_venv
-
-- name: install pipeline from cache dir
+- name: Copy pipeline from cache
   copy:
     src: "{{ pipeline_cache_path }}/"
     dest: "{{ pipeline_dir }}"
     force: yes
 
-- name: install pipeline requirements
-  shell: "conda install -n {{ item.name }} \
-         -c bioconda \
-         -c conda-forge \
-         -c defaults \
-         --file {{ pipeline_dir }}/requirements.txt"
-  with_items:
-  - "{{ pipeline_env }}"
+- name: Create Conda virtual environment
+# conda env create --yes -q --force -n name --file
+  shell: "conda env create --force -q -n {{ project_name }} \
+         --file core_environment.yml"
+  args:
+    chdir: "{{ pipeline_dir }}"
+  when: create_venv
 
-- name: copy run script
+- name: Installing pipeline dependencies
+  shell: "conda env update -q -n {{ project_name }} \
+         --file {{ project_environment_file }} "
+  args:
+    chdir: "{{ pipeline_dir }}"
+  when: create_venv
+
+- name: Copy run script
   template:
     src: "run.project.j2"
     dest: "{{ pipeline_dir }}/run.project.sh"
     mode: 0750
 
-- name: copy notify rule
+- name: Copy notify rule
   template:
     src: "notify.smk.j2"
     dest: "{{ pipeline_dir }}/notify.smk"
+  when: include_notify
 
-- name: include notify rule into the Snakefile
+- name: Include notify rule into the Snakefile
   lineinfile:
     path: "{{ pipeline_dir }}/Snakefile"
     line: 'include: "notify.smk"'
+  when: include_notify
 
-- name: replace paths into the project configuration file
+- name: Replace paths into the project configuration file
   replace:
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"
     regexp: "{{ item.reg }}"
@@ -53,14 +53,3 @@
   - { reg: 'path_to_references_data', rep: "{{ references_dir }}" }
   - { reg: 'path_to_datasets', rep: "{{ datasets_dir }}" }
   - { reg: 'path_to_tmp_dir', rep: "{{ tmp_dir }}" }
-
-#- name: rename cluster config file
-#  shell: "mv {{ pipeline_dir }}/_cluster.json {{ pipeline_dir }}/cluster.json"
-#  when: cluster_setup
-#
-#- name: replace default_host_group into cluster.json
-#  replace:
-#    dest: "{{ pipeline_dir }}/cluster.json"
-#    regexp: 'default_host_group'
-#    replace: "{{ default_host_group }}"
-#  when: cluster_setup
