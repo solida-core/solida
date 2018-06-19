@@ -19,12 +19,11 @@
     chdir: "{{ pipeline_dir }}"
   when: create_venv
 
-- name: Installing pipeline dependencies
+- name: Install pipeline dependencies
   shell: "conda env update -q -n {{ project_name }} \
          --file {{ project_environment_file }} "
   args:
     chdir: "{{ pipeline_dir }}"
-  when: create_venv
 
 - name: Copy run script
   template:
