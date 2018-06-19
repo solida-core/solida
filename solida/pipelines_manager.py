@@ -2,7 +2,7 @@ import os
 import sys
 
 from copy import deepcopy
-from comoda import a_logger
+from comoda import a_logger, is_tool_available
 from git import Repo
 
 from .__details__ import cache_dir
@@ -103,6 +103,14 @@ class Pipeline(object):
         return pvt
 
     def instantiate(self, host, remote_user, connection, profile):
+        # TODO: tool availability check should run on remote host also
+        # tool_label = 'conda'
+        # if not is_tool_available(tool_label):
+        #     msg = '{} not found at host {}. Install it from ' \
+        #           'https://conda.io/miniconda.html'.format(tool_label.capitalize(), host)
+        #     print(msg)
+        #     self.logger.error(msg)
+        #     return
         msg = "Instantiating {0} into {1}/{2}".format(self.label,
                                                       profile['project_dir'],
                                                       profile['project_name'])

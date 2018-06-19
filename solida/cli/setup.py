@@ -1,7 +1,7 @@
 import os
 
 from solida.pipelines_manager import PipelinesManager
-from comoda import path_exists, ensure_dir, is_tool_available
+from comoda import path_exists, ensure_dir
 from comoda.yaml import dump, load
 
 from ..__details__ import profile_dir
@@ -92,12 +92,6 @@ def implementation(logger, args):
         return
 
     if args.deployment and not args.create_profile:
-        if not is_tool_available('conda'):
-            msg = 'Conda not found. Install it from ' \
-                  'https://conda.io/miniconda.html'
-            print(msg)
-            logger.error(msg)
-            return
         if profile:
             host = args.host
             remote_user = args.remote_user
