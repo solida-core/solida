@@ -23,26 +23,39 @@ solida -v
 
 To list all the pipelines enabled, digit
 ```bash
-solida list
-solida list --full
+solida info
 ```
 
 To check if both pipeline and profile are available, digit:
 ```bash
-solida pipeline -l pipeline_label -p profile_label
+solida setup -l pipeline_label -p profile_label
 ```
 
 Before to deploy a pipeline, you have to create a project profile:
 ```bash
-solida pipeline -l pipeline_label -p profile_label --create-profile 
+solida setup -l pipeline_label -p profile_label --create-profile 
 ```
 Solida will create a yaml file named _profile_label.yaml_ into _~/solida_profiles_  
 Edit the _profile_label.yaml_ to match your environment settings.
 
-After that, deploy the pipeline with:
+After that, deploy the pipeline into localhost with:
 ```bash
-solida pipeline -l pipeline_label -p profile_label --deploy 
+solida setup -l pipeline_label -p profile_label --deploy 
 ```
+If you want to deploy the pipeline into a remote host, add these 
+arguments:
+```bash
+solida setup -l pipeline_label -p profile_label --deploy --host remote_host 
+--remote-user username --connection ssh
+```
+where:  
+_--host_ is the hostname of the remote host  
+_--remote-user_ is a username available in the remote host  
+_--connection_ is the type of connection to use  
+
+Pay attention, _remote_user_ have to be able to do ssh login into _remote_host_ 
+without password (SSH Key-Based Authentication)
+
 ### Script to execute the workflow
 Solida provides a bash script, _**run.project.sh**_, to facilitate the 
 workflow execution.  

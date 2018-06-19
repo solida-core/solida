@@ -34,31 +34,44 @@ To list all the pipelines enabled, digit
 
 .. code-block:: console
 
-    $ solida list
-    $ solida list --full
+    $ solida info
 
 To check if both pipeline and profile are available, digit:
 
 .. code-block:: console
 
-    $ solida pipeline -l pipeline_label -p profile_label
+    $ solida setup -l pipeline_label -p profile_label
 
 Before to deploy a pipeline, you have to create a project profile:
 
 .. code-block:: console
 
-    $ solida pipeline -l pipeline_label -p profile_label --create-profile
+    $ solida setup -l pipeline_label -p profile_label --create-profile
 
 | Solida will create a yaml file named *profile_label.yaml* into *~/solida_profiles*.
 | Edit the *profile_label.yaml* to match your environment settings.
 
 
-After that, deploy the pipeline with:
+After that, deploy the pipeline into localhost with:
 
 .. code-block:: console
 
-    $ solida pipeline -l pipeline_label -p profile_label --deploy
+    $ solida setup -l pipeline_label -p profile_label --deploy
 
+If you want to deploy the pipeline into a remote host, add these
+arguments:
+
+.. code-block:: console
+
+    $ solida setup -l pipeline_label -p profile_label --deploy --host remote_host --remote-user username --connection ssh
+
+where:
+*--host* is the hostname of the remote host
+*--remote-user* is a username available in the remote host
+*--connection* is the type of connection to use
+
+Pay attention, _remote_user_ have to be able to do ssh login into _remote_host_
+without password (SSH Key-Based Authentication)
 
 .. _conda.io: https://conda.io/miniconda.html
 
