@@ -1,6 +1,7 @@
 # Solida [![Build Status](https://travis-ci.org/gmauro/solida.svg?branch=master)](https://travis-ci.org/gmauro/solida)
-NGS pipelines bootstrapper
-
+NGS pipelines bootstrapper.  
+Easily organize the deployment, the data management and the execution of a 
+Snakemake based workflow.
 
 ## Installation
 

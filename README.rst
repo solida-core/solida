@@ -1,6 +1,8 @@
 Solida
 ======
-NGS pipelines bootstrapper
+NGS pipelines bootstrapper.
+Easily organize the deployment, the data management and the execution of a
+Snakemake based workflow.
 
 |build|
 
@@ -66,11 +68,15 @@ arguments:
     $ solida setup -l pipeline_label -p profile_label --deploy --host remote_host --remote-user username --connection ssh
 
 where:
+
 *--host* is the hostname of the remote host
+
 *--remote-user* is a username available in the remote host
+
 *--connection* is the type of connection to use
 
-Pay attention, _remote_user_ have to be able to do ssh login into _remote_host_
+
+Pay attention, *remote_user* have to be able to do ssh login into *remote_host*
 without password (SSH Key-Based Authentication)
 
 .. _conda.io: https://conda.io/miniconda.html
