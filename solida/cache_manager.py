@@ -16,13 +16,14 @@ class CacheManager:
         self.logfile = args.logfile
         self.logger = a_logger(self.__class__.__name__, level=self.loglevel,
                                filename=self.logfile)
-        path_from_cli = args.config_file if args.config_file else None
+        path_from_cli = args.config_file if 'config_file' in vars(args) else None
         cm = ConfigurationManager(args=args,
                                   path_from_cli=path_from_cli)
         self.conf = cm.get_pipelines_config
         self.cache_dir = cache_dir
         ensure_dir(self.cache_dir)
-        self.ask_before_to_refresh = args.ask if args.ask else False
+
+        self.ask_before_to_refresh = args.ask if 'ask' in vars(args) else False
 
     def clone(self, label):
         pipeline = Pipeline(self.conf[label], loglevel=self.loglevel,
@@ -71,7 +72,6 @@ class CacheManager:
         if self.ask_before_to_refresh:
             msg = ("Updating {} - {}".format(pipeline.label.capitalize(),
                                              pipeline.description))
-            #skip = input('Enter s to skip or any other else to continue: ')
             skip = self.user_input(msg)
         if skip != ord('s'):
             repo_dir = os.path.join(self.cache_dir, label)

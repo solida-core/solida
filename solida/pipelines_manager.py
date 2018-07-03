@@ -19,7 +19,7 @@ class PipelinesManager(object):
         self.logfile = args.logfile
         self.logger = a_logger(self.__class__.__name__, level=self.loglevel,
                                filename=self.logfile)
-        path_from_cli = args.config_file if args.config_file else None
+        path_from_cli = args.config_file if 'config_file' in vars(args) else None
         cm = ConfigurationManager(args=args, path_from_cli=path_from_cli)
         self.conf = cm.get_pipelines_config
         self.cache_dir = cache_dir
