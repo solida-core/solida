@@ -4,6 +4,7 @@
     - vars/gatk.yaml
   tasks:
     - include_tasks: common.yaml
+    - include_tasks: replace_paths.yaml
 
     - name: register GATK to copy it into your conda environment.
       shell: "source activate {{ project_name }}; gatk-register {{ gatk_path }}"

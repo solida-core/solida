@@ -43,12 +43,4 @@
     line: 'include: "notify.smk"'
   when: include_notify
 
-- name: Replace paths into the project configuration file
-  replace:
-    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
-    regexp: "{{ item.reg }}"
-    replace: "{{ item.rep }}"
-  with_items:
-  - { reg: 'path_to_references_data', rep: "{{ references_dir }}" }
-  - { reg: 'path_to_datasets', rep: "{{ datasets_dir }}" }
-  - { reg: 'path_to_tmp_dir', rep: "{{ tmp_dir }}" }
+

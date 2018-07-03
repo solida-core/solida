@@ -1,4 +1,28 @@
 pipelines:
+    annotation:
+        label: 'annotation'
+        description: 'Snakemake pipeline to annotate genomic data.'
+        url: "https://bitbucket.org/biopipelines/annotation.git"
+        type: "git"
+        playbook: 'install_gatk_pipeline.yaml'
+        playbook_vars_template:
+        # flags to activate specific tasks
+                create_venv: True
+                include_notify: True
+        # Pipeline dependencies
+                project_environment_file: environment.yml
+        # Project vars
+                project_name: 'noname_project'
+                project_email_address: 'example@example'
+                project_config_file: 'config.yaml'
+        # Paths
+                project_dir: /path/where/install/the/pipeline # required
+                references_dir: /path/to/references           # optional
+                tmp_dir: path/to/tmp                          # optional
+                gatk_paths: "path/to/software/GenomeAnalysisTK.jar"
+        # Snakemake related
+                snakefile: Snakefile                          # required
+                jobs: 2
   dima:
         label: 'dima'
         description: 'Pipeline to map DNA datasets to a given reference

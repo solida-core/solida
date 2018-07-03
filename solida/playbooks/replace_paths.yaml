@@ -1,0 +1,22 @@
+---
+
+- name: Replace path_to_references_data into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: 'path_to_references_data'
+    replace: "{{ references_dir }}"
+  ignore_errors: yes
+
+- name: Replace path_to_datasets into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: 'path_to_datasets'
+    replace: "{{ datasets_dir }}"
+  ignore_errors: yes
+
+- name: Replace path_to_tmp_dir into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: 'path_to_tmp_dir'
+    replace: "{{ tmp_dir }}"
+  ignore_errors: yes
