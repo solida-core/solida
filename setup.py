@@ -25,7 +25,7 @@ extra_files = [os.path.join(here, 'requirements.txt'),
                os.path.join(here, 'solida', 'playbooks',
                             'install_pipeline.yaml'),
                os.path.join(here, 'solida', 'playbooks',
-                            'install_diva.yaml'),
+                            'install_gatk_pipeline.yaml'),
                os.path.join(here, 'solida', 'playbooks',
                             'templates', 'run.project.j2'),
                os.path.join(here, 'solida', 'playbooks',
@@ -33,7 +33,7 @@ extra_files = [os.path.join(here, 'requirements.txt'),
                os.path.join(here, 'solida', 'playbooks',
                             'vars', 'main.yaml'),
                os.path.join(here, 'solida', 'playbooks',
-                            'vars', 'diva.yaml'),
+                            'vars', 'gatk.yaml'),
                ]
 
 setup(
