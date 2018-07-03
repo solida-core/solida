@@ -1,3 +1,4 @@
+import curses
 import os
 
 from comoda import a_logger, ensure_dir, path_is_empty, path_exists
@@ -21,6 +22,7 @@ class CacheManager:
         self.conf = cm.get_pipelines_config
         self.cache_dir = cache_dir
         ensure_dir(self.cache_dir)
+        self.ask_before_to_refresh = args.ask if args.ask else False
 
     def clone(self, label):
         pipeline = Pipeline(self.conf[label], loglevel=self.loglevel,
@@ -50,7 +52,7 @@ class CacheManager:
                 dump(data, requirements_path)
 
             print("commit id: {}".format(master.commit))
-            print("Done.")
+            print("Done.\n")
             self.logger.info('Cloned git repo at {} into {} '
                              'directory'.format(pipeline.url, repo_dir))
         else:
@@ -63,10 +65,34 @@ class CacheManager:
             self.clone(p)
 
     def update(self, label):
-        repo_dir = os.path.join(self.cache_dir, label)
-        ensure_dir(repo_dir, force=True)
-        self.clone(label)
+        pipeline = Pipeline(self.conf[label], loglevel=self.loglevel,
+                            logfile=self.logfile)
+        skip = ''
+        if self.ask_before_to_refresh:
+            msg = ("Updating {} - {}".format(pipeline.label.capitalize(),
+                                             pipeline.description))
+            #skip = input('Enter s to skip or any other else to continue: ')
+            skip = self.user_input(msg)
+        if skip != ord('s'):
+            repo_dir = os.path.join(self.cache_dir, label)
+            ensure_dir(repo_dir, force=True)
+            self.clone(label)
 
     def updates(self):
         for p in self.conf.keys():
             self.update(p)
+
+    @staticmethod
+    def user_input(msg):
+        stdscr = curses.initscr()
+        curses.noecho()
+        curses.cbreak()
+        stdscr.keypad(True)
+        stdscr.addstr(0, 0, msg)
+        stdscr.addstr(1, 0, 'Enter s to skip or any other else to continue')
+        c = stdscr.getch()
+        curses.nocbreak()
+        stdscr.keypad(False)
+        curses.echo()
+        curses.endwin()
+        return c

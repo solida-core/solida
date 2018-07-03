@@ -6,6 +6,10 @@ Do a local cache refresh of the pipelines
 
 
 def make_parser(parser):
+    parser.add_argument('--ask',
+                        dest='ask',
+                        action='store_true',
+                        help="Ask before to trigger the pipeline's refresh")
     pass
 
 
