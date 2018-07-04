@@ -1,8 +1,6 @@
 Solida
 ======
-NGS pipelines bootstrapper.
-Easily organize the deployment, the data management and the execution of a
-Snakemake based workflow.
+SOLIDA is command-line solution that facilitate the reproducibility and portability of NGS pipelines. It can easily organize the deployment, the data management and the execution of a Snakemake based workflow.
 
 |build|
 
