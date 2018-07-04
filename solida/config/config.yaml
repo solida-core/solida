@@ -1,5 +1,5 @@
 pipelines:
-    annotation:
+  annotation:
         label: 'annotation'
         description: 'Snakemake pipeline to annotate genomic data.'
         url: "https://bitbucket.org/biopipelines/annotation.git"
