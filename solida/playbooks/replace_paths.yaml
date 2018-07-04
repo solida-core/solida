@@ -20,3 +20,41 @@
     regexp: 'path_to_tmp_dir'
     replace: "{{ tmp_dir }}"
   ignore_errors: yes
+
+- name: Replace path_to_software into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: 'path_to_software-kggseq.jar'
+    replace: "{{ kggseq_path }}"
+  ignore_errors: yes
+
+- name: Replace path_to_blocks_file into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: 'path_to_blocks_file'
+    replace: "{{ blocks_file }}"
+  ignore_errors: yes
+
+- name: Replace path_to_ped_file into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: 'path_to_ped_file'
+    replace: "{{ ped_file }}"
+  ignore_errors: yes
+
+- name: Replace path_to_reheader_file into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: 'path_to_reheader_file'
+    replace: "{{ reheader_file }}"
+  ignore_errors: yes
+
+- name: Replace path_to_recalibrated_vcf into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: 'path_to_recalibrated_vcf'
+    replace: "{{ recalibrated_vcf_file }}"
+  ignore_errors: yes
+
+
+
