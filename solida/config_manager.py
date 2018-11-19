@@ -6,7 +6,7 @@ from functools import total_ordering
 from pkg_resources import resource_filename
 from shutil import copyfile
 
-from .__details__ import __appname__, config_dir
+from solida import __appname__, config_dir
 
 
 @total_ordering

@@ -5,7 +5,7 @@ from copy import deepcopy
 from comoda import a_logger, is_tool_available
 from git import Repo
 
-from .__details__ import cache_dir
+from solida import cache_dir
 from .ansible_wrapper import AnsibleWrapper
 from .config_manager import ConfigurationManager
 

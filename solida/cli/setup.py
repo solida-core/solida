@@ -4,7 +4,7 @@ from solida.pipelines_manager import PipelinesManager
 from comoda import path_exists, ensure_dir
 from comoda.yaml import dump, load
 
-from ..__details__ import profile_dir
+from solida import profile_dir
 
 help_doc = """
 Setup pipeline

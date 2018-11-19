@@ -4,7 +4,7 @@ import os
 from comoda import a_logger, LOG_LEVELS, ensure_dir
 from importlib import import_module
 
-from .__details__ import *
+from solida import *
 from .cache_manager import CacheManager
 
 

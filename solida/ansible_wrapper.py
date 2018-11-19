@@ -6,7 +6,7 @@ from ansible.vars.manager import VariableManager
 from ansible.inventory.manager import InventoryManager as Inventory
 from ansible.executor.playbook_executor import PlaybookExecutor
 
-from .__details__ import cache_dir
+from solida import cache_dir
 
 
 class AnsibleWrapper(object):

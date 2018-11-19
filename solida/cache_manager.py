@@ -5,7 +5,7 @@ from comoda import a_logger, ensure_dir, path_is_empty, path_exists
 from comoda.yaml import dump
 from git import Repo
 
-from .__details__ import cache_dir
+from solida import cache_dir
 from .config_manager import ConfigurationManager
 from .pipelines_manager import Pipeline
 

@@ -1,4 +1,4 @@
-from ..__details__ import *
+from solida import *
 from ..pipelines_manager import PipelinesManager
 
 
