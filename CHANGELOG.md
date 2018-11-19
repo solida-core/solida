@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.9.0] - 2018-11-19
+### added
+- coverest - pipeline for coverage estimation with GATK DepthOfCoverage
+### Changed
+- several fixes
+- setup improvements
+
 ## [0.6.2] - 2017-12-19
 ### Changed
 - bugfix
