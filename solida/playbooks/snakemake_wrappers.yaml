@@ -1,0 +1,23 @@
+- name: Clone Snakemake wrappers repo
+  git:
+    repo: "{{ sm_wrappers_repo }}"
+    dest: "{{ pipeline_dir }}/wrappers"
+    version: "{{ sm_wrappers_release }}"
+    force: yes
+  when: local_git_4_wrappers
+
+- name: Find smk files
+  find:
+    paths: "{{ pipeline_dir }}/rules"
+    patterns: '*.smk'
+  register: smk_files
+  when: local_git_4_wrappers
+
+- name: Replace path to Snakemake wrappers into smk files
+  replace:
+    dest: "{{ item.path }}"
+    regexp: "{{ sm_wrappers_release }}/bio"
+    replace: "file:{{ pipeline_dir }}/wrappers/bio"
+  loop: "{{ smk_files.files }}"
+  ignore_errors: yes
+  when: local_git_4_wrappers

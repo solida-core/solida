@@ -34,13 +34,13 @@
 - name: Copy notify rule
   template:
     src: "notify.smk.j2"
-    dest: "{{ pipeline_dir }}/notify.smk"
+    dest: "{{ pipeline_dir }}/rules/notify.smk"
   when: include_notify
 
 - name: Include notify rule into the Snakefile
   lineinfile:
     path: "{{ pipeline_dir }}/Snakefile"
-    line: 'include: "notify.smk"'
+    line: 'include: "rules/notify.smk"'
   when: include_notify
 
 

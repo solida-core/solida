@@ -10,7 +10,7 @@ where:
     -s  different snakefile name from standard Snakefile
     -c  path to the snakemake's configuration file.
     -w  is the project's workdir label. Default is current timestamp.
-    -p  snakemake parameters as \"--rerun-incomplete --dryrun --keep-going --restart-time\"
+    -p  snakemake parameters as \"--rerun-incomplete --dryrun --keep-going --profile label_of_cluster_profile\"
 "
 
 while getopts ':hc:p:w:s:' option; do

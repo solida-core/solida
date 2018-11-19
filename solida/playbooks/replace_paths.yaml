@@ -1,5 +1,26 @@
 ---
 
+- name: Replace path to the config_file into the Snakemake file
+  replace:
+    dest: "{{ pipeline_dir }}/Snakefile"
+    regexp: "{{ project_config_file }}"
+    replace: "{{ pipeline_dir }}/{{ project_config_file }}"
+  ignore_errors: yes
+
+- name: Replace path to samples.tsv into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: "samples.tsv"
+    replace: "{{ pipeline_dir }}/samples.tsv"
+  ignore_errors: yes
+
+- name: Replace path to units.tsv into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: "units.tsv"
+    replace: "{{ pipeline_dir }}/units.tsv"
+  ignore_errors: yes
+
 - name: Replace path_to_references_data into the project configuration file
   replace:
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"
@@ -7,11 +28,39 @@
     replace: "{{ references_dir }}"
   ignore_errors: yes
 
-- name: Replace path_to_datasets into the project configuration file
+- name: Replace reference provider into the project configuration file
   replace:
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: '_provider_'
+    replace: "{{ references_provider }}"
+  ignore_errors: yes
+
+- name: Replace reference fasta file into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: '_genome_fasta_'
+    replace: "{{ reference_genome_fasta }}"
+  ignore_errors: yes
+
+- name: Replace reference release into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: '_release_'
+    replace: "{{ references_release }}"
+  ignore_errors: yes
+
+- name: Find tsv files
+  find:
+    paths: "{{ pipeline_dir }}"
+    patterns: '*.tsv'
+  register: tsv_files
+
+- name: Replace path_to_datasets into the project configuration file
+  replace:
+    dest: "{{ item.path }}"
     regexp: 'path_to_datasets'
     replace: "{{ datasets_dir }}"
+  loop: "{{ tsv_files.files }}"
   ignore_errors: yes
 
 - name: Replace path_to_tmp_dir into the project configuration file

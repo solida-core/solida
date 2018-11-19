@@ -1,3 +1,7 @@
+remote:
+  host: localhost
+  remote-user: user:
+  connection: local
 pipelines:
   annotation:
         label: 'annotation'
@@ -6,19 +10,26 @@ pipelines:
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
+                sm_wrappers_repo: https://bitbucket.org/snakemake/snakemake-wrappers.git
+                sm_wrappers_release: 0.27.0
         # flags to activate specific tasks
                 create_venv: True
                 include_notify: True
+                local_git_4_wrappers: True
         # Pipeline dependencies
                 project_environment_file: environment.yml
         # Project vars
                 project_name: 'noname_project'
                 project_email_address: 'example@example'
                 project_config_file: 'config.yaml'
+        # References
+                references_dir: /path/to/references
+                references_provider: provider
+                references_release: release
+                reference_genome_fasta: genome_fasta_file
         # Paths
                 project_dir: /path/where/install/the/pipeline # required
-                references_dir: /path/to/references           # optional
-                tmp_dir: path/to/tmp                          # optional
+                tmp_dir: path/to/tmp
                 kggseq_path: "path/to/software/kggseq.jar"
                 ped_file: path/to/ped_file
                 blocks_file: path/to/blocks_file
@@ -44,9 +55,13 @@ pipelines:
                 project_name: 'noname_project'
                 project_email_address: 'example@example'
                 project_config_file: 'config.test.data.json'
+        # References
+                references_dir: /path/to/references
+                references_provider: provider
+                references_release: release
+                reference_genome_fasta: genome_fasta_file
         # Paths
                 project_dir: /path/where/install/the/pipeline # required
-                references_dir: /path/to/references           # optional
                 datasets_dir: /path/to/datasets               # optional
                 tmp_dir: path/to/tmp                          # optional
         # Snakemake related
@@ -108,9 +123,12 @@ pipelines:
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
+                sm_wrappers_repo: https://bitbucket.org/snakemake/snakemake-wrappers.git
+                sm_wrappers_release: 0.27.0
                 # flags to activate specific tasks
                 create_venv: True
                 include_notify: True
+                local_git_4_wrappers: True
         # Pipeline dependencies
                 project_environment_file: environment.yml
         # Project vars

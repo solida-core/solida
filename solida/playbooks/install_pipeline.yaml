@@ -4,6 +4,7 @@
   tasks:
     - include_tasks: common.yaml
     - include_tasks: replace_paths.yaml
+    - include: snakemake_wrappers.yaml
 
 
 
