@@ -14,7 +14,7 @@ with open(os.path.join(here, 'solida', 'VERSION')) as f:
 with open(os.path.join(here, 'requirements.txt')) as f:
     required = f.read().splitlines()
 
-with open(os.path.join(here, 'README.rst')) as f:
+with open(os.path.join(here, 'README.md')) as f:
     long_description = f.read()
 
 extra_files = [os.path.join(here, 'requirements.txt'),
@@ -26,6 +26,8 @@ extra_files = [os.path.join(here, 'requirements.txt'),
                             'install_pipeline.yaml'),
                os.path.join(here, 'solida', 'playbooks',
                             'install_gatk_pipeline.yaml'),
+               os.path.join(here, 'solida', 'playbooks',
+                            'replace_paths.yaml'),
                os.path.join(here, 'solida', 'playbooks',
                             'templates', 'run.project.j2'),
                os.path.join(here, 'solida', 'playbooks',
@@ -41,9 +43,10 @@ setup(
     version=__version__,
     description='NGS pipelines bootstrapper',
     long_description=long_description,
+    long_description_content_type="text/markdown",
 
     # The project's main homepage.
-    url='https://bitbucket.org/biopipelines/solida',
+    url='https://github.com/gmauro/solida',
 
     # Author details
     author='Gianmauro Cuccuru',
