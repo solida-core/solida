@@ -28,25 +28,25 @@
     replace: "{{ references_dir }}"
   ignore_errors: yes
 
-- name: Replace reference provider into the project configuration file
+- name: Replace reference_provider into the project configuration file
   replace:
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"
-    regexp: '_provider_'
-    replace: "{{ references_provider }}"
+    regexp: 'reference_provider'
+    replace: "{{ _provider_ }}"
   ignore_errors: yes
 
-- name: Replace reference fasta file into the project configuration file
+- name: Replace reference_release into the project configuration file
   replace:
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"
-    regexp: '_genome_fasta_'
-    replace: "{{ reference_genome_fasta }}"
+    regexp: 'reference_release'
+    replace: "{{ _release_ }}"
   ignore_errors: yes
 
-- name: Replace reference release into the project configuration file
+- name: Replace reference_fname into the project configuration file
   replace:
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"
-    regexp: '_release_'
-    replace: "{{ references_release }}"
+    regexp: '_genome_fasta'
+    replace: "{{ _genome_fasta }}"
   ignore_errors: yes
 
 - name: Find tsv files
@@ -75,6 +75,13 @@
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"
     regexp: 'path_to_software-kggseq.jar'
     replace: "{{ kggseq_path }}"
+  ignore_errors: yes
+
+- name: Replace path_to_gatk_software into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: 'path_to_software-gatk3.7'
+    replace: "{{ gatk_dir }}"
   ignore_errors: yes
 
 - name: Replace path_to_blocks_file into the project configuration file
