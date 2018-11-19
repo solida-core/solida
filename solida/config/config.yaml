@@ -176,4 +176,40 @@ pipelines:
                 jobs: 2
 
 
+  coverest:
+          label: 'coverest'
+          description: 'Snakemake enabled pipeline for coverage estimation'
+          url: "https://bitbucket.org/massiddaMT/coverest.git"
+          type: "git"
+          playbook: 'install_pipeline.yaml'
+          playbook_vars_template:
+                  # flags to activate specific tasks
+                  create_venv: True
+                  include_notify: True
+          # Pipeline dependencies
+                  project_environment_file: environment.yaml
+          # Project vars
+                  project_name: 'noname_project'
+                  project_email_address: 'example@example'
+                  project_config_file: 'config.yaml'
+          # Paths
+                  project_dir: /path/where/install/the/pipeline # required
+                  references_dir: /path/to/references           # optional
+
+                  _provider_: reference_genome_provider (es. ncbi)
+
+                  _release_: reference_genome_release (es. hg19)
+
+                  _genome_fasta: reference_genome_fasta_filename (*.fasta)
+
+                  datasets_dir: /path/to/datasets               # optional
+                  tmp_dir: path/to/tmp                          # optional
+
+                  gatk_dir: path/to/software/gatk-3.7                    # optional
+
+          # Snakemake related
+                  snakefile: Snakefile
+                  jobs: 2
+
+
 
