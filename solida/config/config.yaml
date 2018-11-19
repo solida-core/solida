@@ -1,6 +1,6 @@
 remote:
   host: localhost
-  remote-user: user:
+  remote-user: user
   connection: local
 pipelines:
   annotation:
