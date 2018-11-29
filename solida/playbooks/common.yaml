@@ -5,11 +5,10 @@
   with_items:
   - "{{ pipeline_dir }}"
 
-- name: Copy pipeline from cache
-  copy:
+- name: Synchronize pipeline from cache
+  synchronize:
     src: "{{ pipeline_cache_path }}/"
     dest: "{{ pipeline_dir }}"
-    force: yes
 
 - name: Create Conda virtual environment
 # conda env create --yes -q --force -n name --file
@@ -42,5 +41,3 @@
     path: "{{ pipeline_dir }}/Snakefile"
     line: 'include: "rules/notify.smk"'
   when: include_notify
-
-
