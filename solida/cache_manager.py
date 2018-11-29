@@ -20,6 +20,10 @@ class CacheManager:
         cm = ConfigurationManager(args=args,
                                   path_from_cli=path_from_cli)
         self.conf = cm.get_pipelines_config
+        self.core_environment_file = cm.get_default_config[
+            'core_environment_file']
+        self.environment_file = cm.get_default_config[
+            'project_environment_file']
         self.cache_dir = cache_dir
         ensure_dir(self.cache_dir)
 
@@ -40,13 +44,13 @@ class CacheManager:
                 filename.write(pipeline.url)
                 filename.write("\ncommit id: {}".format(master.commit))
 
-            requirements_path = os.path.join(repo_dir, 'core_environment.yml')
+            requirements_path = os.path.join(repo_dir, self.core_environment_file)
             if not path_exists(requirements_path):
                 data = {'channels': ['bioconda', 'conda-forge', 'defaults'],
                         'dependencies': ['python==3.6.1', 'pip']}
                 dump(data, requirements_path)
 
-            requirements_path = os.path.join(repo_dir, 'environment.yml')
+            requirements_path = os.path.join(repo_dir, self.environment_file)
             if not path_exists(requirements_path):
                 data = {'channels': ['bioconda', 'conda-forge', 'defaults'],
                         'dependencies': ['snakemake', 'drmaa==0.7.8']}
