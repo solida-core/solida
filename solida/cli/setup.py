@@ -1,10 +1,10 @@
 import os
 
-from solida.pipelines_manager import PipelinesManager
 from comoda import path_exists, ensure_dir
 from comoda.yaml import dump, load
-
 from solida import profile_dir
+from solida.config_manager import ConfigurationManager
+from solida.pipelines_manager import PipelinesManager
 
 help_doc = """
 Setup pipeline
@@ -65,7 +65,13 @@ def implementation(logger, args):
         logger.info("Profile not found at {}".format(file_path))
         return None
 
-    def write_profile(pl_, profile_label, profile_path, logger_):
+    def write_profile(default_config, pl_, profile_label, profile_path,
+                      logger_):
+        def merge_two_dicts(x, y):
+            z = x.copy()  # start with x's keys and values
+            z.update(y)  # modifies z with y's keys and values & returns None
+            return z
+
         file_path = os.path.join(profile_path, '{}.yaml'.format(profile_label))
         if path_exists(file_path, logger_, force=False) and not args.force:
             msg = "{} profile already exists".format(file_path)
@@ -73,8 +79,9 @@ def implementation(logger, args):
             logger.error(msg)
             # sys.exit()
         else:
-            dump(pl_.playbook_vars_template(project_name=profile_label),
-                 file_path)
+            to_dump = merge_two_dicts(default_config,
+                                      pl_.playbook_vars_template(project_name=profile_label))
+            dump(to_dump, file_path)
             logger.info("Created {} profile".format(file_path))
             print("Edit variables value into the {} file".format(file_path))
         return
@@ -87,8 +94,12 @@ def implementation(logger, args):
     pl = plm.get_pipeline(args.label)
     profile = get_profile(profile_label, profile_path, logger)
 
+    path_from_cli = args.config_file if 'config_file' in vars(args) else None
+    cm = ConfigurationManager(args=args, path_from_cli=path_from_cli)
+    default_config = cm.get_default_config
+
     if args.create_profile and not args.deployment:
-        write_profile(pl, profile_label, profile_path, logger)
+        write_profile(default_config, pl, profile_label, profile_path, logger)
         return
 
     if args.deployment and not args.create_profile:

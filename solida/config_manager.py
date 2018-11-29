@@ -67,6 +67,11 @@ class ConfigurationManager(object):
 
         c = load_config(config_file_path)
         self.pipes_conf = c['pipelines'] if 'pipelines' in c else None
+        self.default_conf = c['default_vars'] if 'default_vars' in c else None
+
+    @property
+    def get_default_config(self):
+        return self.default_conf
 
     @property
     def get_pipelines_config(self):

@@ -2,6 +2,26 @@ remote:
   host: localhost
   remote-user: user
   connection: local
+default_vars:
+  # Default variables values for the playbooks
+  ###
+  # flags to activate specific tasks
+  create_venv: True
+  include_notify: True
+  local_git_4_wrappers: False
+  # Pipeline dependencies
+  core_environment_file: core_environment.yml
+  project_environment_file: environment.yml
+  # Project vars
+  project_name: 'noname_project'
+  project_email_address: 'example@example'
+  project_config_file: 'config.yaml'
+  # Paths
+  project_dir: /path/where/install/the/pipeline # required
+  tmp_dir: path/to/tmp
+  # Snakemake related
+  snakefile: Snakefile                          # required
+  jobs: 2
 pipelines:
   annotation:
         label: 'annotation'
@@ -10,12 +30,6 @@ pipelines:
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
-                sm_wrappers_repo: https://bitbucket.org/snakemake/snakemake-wrappers.git
-                sm_wrappers_release: 0.27.0
-        # flags to activate specific tasks
-                create_venv: True
-                include_notify: True
-                local_git_4_wrappers: True
         # Pipeline dependencies
                 project_environment_file: environment.yml
         # Project vars
@@ -28,16 +42,12 @@ pipelines:
                 references_release: release
                 reference_genome_fasta: genome_fasta_file
         # Paths
-                project_dir: /path/where/install/the/pipeline # required
-                tmp_dir: path/to/tmp
                 kggseq_path: "path/to/software/kggseq.jar"
-                ped_file: path/to/ped_file
-                blocks_file: path/to/blocks_file
-                reheader_file: path/to/reheader_file
-                recalibrated_vcf_file: path/to/recalibrated_vcf
-        # Snakemake related
-                snakefile: Snakefile                          # required
-                jobs: 2
+                ped_file: ../resources/project.ped
+                blocks_file: ../resources/annot.blocks
+                reheader_file: ../resources/reheader.txt
+                recalibrated_vcf_dir: path/to/recalibrated_vcf_dir
+
   dima:
         label: 'dima'
         description: 'Pipeline to map DNA datasets to a given reference
@@ -46,27 +56,14 @@ pipelines:
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
-        # flags to activate specific tasks
-                create_venv: True
-                include_notify: True
-        # Pipeline dependencies
-                project_environment_file: environment.yml
-        # Project vars
-                project_name: 'noname_project'
-                project_email_address: 'example@example'
-                project_config_file: 'config.test.data.json'
         # References
                 references_dir: /path/to/references
                 references_provider: provider
                 references_release: release
                 reference_genome_fasta: genome_fasta_file
         # Paths
-                project_dir: /path/where/install/the/pipeline # required
                 datasets_dir: /path/to/datasets               # optional
-                tmp_dir: path/to/tmp                          # optional
-        # Snakemake related
-                snakefile: Snakefile                          # required
-                jobs: 2
+
   viper:
         label: 'viper'
         description: 'Visualization Pipeline for RNA-Seq data'
@@ -74,23 +71,10 @@ pipelines:
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
-        # flags to activate specific tasks
-                create_venv: True
-                include_notify: True
-        # Pipeline dependencies
-                project_environment_file: envs/environment.yml
-        # Project vars
-                project_name: 'noname_project'
-                project_email_address: 'example@example'
-                project_config_file: 'config.yaml'
         # Paths
-                project_dir: /path/where/install/the/pipeline # required
                 references_dir: /path/to/references           # optional
                 datasets_dir: /path/to/datasets               # optional
-                tmp_dir: path/to/tmp                          # optional
-        # Snakemake related
-                snakefile: viper.snakefile
-                jobs: 2
+
   ride:
         label: 'ride'
         description: 'Pipeline to quantify abundances of transcripts from
@@ -99,23 +83,10 @@ pipelines:
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
-        # flags to activate specific tasks
-                create_venv: True
-                include_notify: True
-        # Pipeline dependencies
-                project_environment_file: environment.yml
-        # Project vars
-                project_name: 'noname_project'
-                project_email_address: 'example@example'
-                project_config_file: 'config.test.data.json'
         # Paths
-                project_dir: /path/where/install/the/pipeline # required
                 references_dir: /path/to/references           # optional
                 datasets_dir: /path/to/datasets               # optional
-                tmp_dir: path/to/tmp                          # optional
-        # Snakemake related
-                snakefile: Snakefile
-                jobs: 2
+
   sride:
         label: 'sride'
         description: 'Snakemake enabled pipeline for smallRNA-Seq identification'
@@ -126,23 +97,11 @@ pipelines:
                 sm_wrappers_repo: https://bitbucket.org/snakemake/snakemake-wrappers.git
                 sm_wrappers_release: 0.27.0
                 # flags to activate specific tasks
-                create_venv: True
-                include_notify: True
                 local_git_4_wrappers: True
-        # Pipeline dependencies
-                project_environment_file: environment.yml
-        # Project vars
-                project_name: 'noname_project'
-                project_email_address: 'example@example'
-                project_config_file: 'config.testdata.yaml'
         # Paths
-                project_dir: /path/where/install/the/pipeline # required
                 references_dir: /path/to/references           # optional
                 datasets_dir: /path/to/datasets               # optional
-                tmp_dir: path/to/tmp                          # optional
-        # Snakemake related
-                snakefile: Snakefile
-                jobs: 2
+
   sride_data:
         label: 'sride_data'
         description: 'Snakemake workflow to produce reference and test data
@@ -151,23 +110,10 @@ pipelines:
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
-                # flags to activate specific tasks
-                create_venv: True
-                include_notify: True
-        # Pipeline dependencies
-                project_environment_file: environment.yml
-        # Project vars
-                project_name: 'noname_project'
-                project_email_address: 'example@example'
-                project_config_file: 'config.yaml'
         # Paths
-                project_dir: /path/where/install/the/pipeline # required
                 references_dir: /path/to/references           # optional
                 datasets_dir: /path/to/datasets               # optional
-                tmp_dir: path/to/tmp                          # optional
-        # Snakemake related
-                snakefile: Snakefile
-                jobs: 2
+
   rna-seq-star-deseq2:
         label: 'rna-seq-star-deseq2'
         description: 'RNA-seq workflow using STAR and DESeq2'
@@ -175,24 +121,9 @@ pipelines:
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
-                # flags to activate specific tasks
-                create_venv: True
-                include_notify: True
-        # Pipeline dependencies
-                project_environment_file: environment.yml
-        # Project vars
-                project_name: 'noname_project'
-                project_email_address: 'example@example'
-                project_config_file: 'config.yaml'
         # Paths
-                project_dir: /path/where/install/the/pipeline # required
                 references_dir: /path/to/references           # optional
                 datasets_dir: /path/to/datasets               # optional
-                tmp_dir: path/to/tmp                          # optional
-        # Snakemake related
-                snakefile: Snakefile
-                jobs: 2
-
 
   coverest:
           label: 'coverest'
@@ -201,33 +132,12 @@ pipelines:
           type: "git"
           playbook: 'install_pipeline.yaml'
           playbook_vars_template:
-                  # flags to activate specific tasks
-                  create_venv: True
-                  include_notify: True
-          # Pipeline dependencies
                   project_environment_file: environment.yaml
-          # Project vars
-                  project_name: 'noname_project'
-                  project_email_address: 'example@example'
-                  project_config_file: 'config.yaml'
           # Paths
-                  project_dir: /path/where/install/the/pipeline # required
                   references_dir: /path/to/references           # optional
-
                   _provider_: reference_genome_provider (es. ncbi)
-
                   _release_: reference_genome_release (es. hg19)
-
                   _genome_fasta: reference_genome_fasta_filename (*.fasta)
-
                   datasets_dir: /path/to/datasets               # optional
-                  tmp_dir: path/to/tmp                          # optional
-
                   gatk_dir: path/to/software/gatk-3.7                    # optional
-
-          # Snakemake related
-                  snakefile: Snakefile
-                  jobs: 2
-
-
 
