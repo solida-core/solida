@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.9.1] - 2018-11-30
+### Changed
+- Playbooks have a default variables section into the configuration file
+- speeded up the setup phase
+- several fixes
+
 ## [0.9.0] - 2018-11-19
 ### added
 - coverest - pipeline for coverage estimation with GATK DepthOfCoverage
