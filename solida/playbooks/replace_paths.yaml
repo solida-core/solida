@@ -70,6 +70,27 @@
     replace: "{{ _db_suffix_ }}"
   ignore_errors: yes
 
+- name: Replace trim_galore_wrapper into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: 'trim_galore_wrapper'
+    replace: "{{ trim_galore_wrapper }}"
+  ignore_errors: yes
+
+- name: Replace fastqc_wrapper into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: 'fastqc_wrapper'
+    replace: "{{ fastqc_wrapper }}"
+  ignore_errors: yes
+
+- name: Replace mark_duplicates_wrapper into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: 'mark_duplicates_wrapper'
+    replace: "{{ mark_duplicates_wrapper }}"
+  ignore_errors: yes
+
 - name: Find tsv files
   find:
     paths: "{{ pipeline_dir }}"
