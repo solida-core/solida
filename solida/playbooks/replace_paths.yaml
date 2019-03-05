@@ -21,6 +21,13 @@
     replace: "{{ pipeline_dir }}/units.tsv"
   ignore_errors: yes
 
+- name: Replace path to patients.tsv into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: "patients.tsv"
+    replace: "{{ pipeline_dir }}/patients.tsv"
+  ignore_errors: yes
+
 - name: Replace path_to_references_data into the project configuration file
   replace:
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"
@@ -47,6 +54,20 @@
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"
     regexp: '_genome_fasta'
     replace: "{{ _genome_fasta }}"
+  ignore_errors: yes
+
+- name: Replace enrichment_kit into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: '_enrichment_kit_'
+    replace: "{{ _enrichment_kit_ }}"
+  ignore_errors: yes
+
+- name: Replace genomics_DBImport suffix into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: '_db_suffix_'
+    replace: "{{ _db_suffix_ }}"
   ignore_errors: yes
 
 - name: Find tsv files
