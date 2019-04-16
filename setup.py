@@ -48,11 +48,11 @@ setup(
     long_description_content_type="text/markdown",
 
     # The project's main homepage.
-    url='https://github.com/gmauro/solida',
+    url='https://github.com/solida-core/solida',
 
     # Author details
     author='Gianmauro Cuccuru',
-    author_email='gmauro@crs4.it',
+    author_email='gmauro@gmail.com',
     # Choose your license
     license='GPLv3',
 

@@ -1,4 +1,7 @@
 # Change Log
+## [0.9.3] - 2019-04-16
+### Changed
+- Several pipelines management improvements
 
 ## [0.9.1] - 2018-11-30
 ### Changed
