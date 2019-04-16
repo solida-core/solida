@@ -1,4 +1,4 @@
-# Solida [![Build Status](https://travis-ci.org/gmauro/solida.svg?branch=master)](https://travis-ci.org/gmauro/solida)
+# SOLIDA [![Build Status](https://travis-ci.org/gmauro/solida.svg?branch=master)](https://travis-ci.org/gmauro/solida) [![PyPI version](https://badge.fury.io/py/solida.svg)](https://badge.fury.io/py/solida)
 SOLIDA is command-line solution that facilitate the reproducibility and portability of NGS pipelines. It can easily organize the deployment, the data management and the execution of a Snakemake based workflow.
 
 ## Installation
