@@ -21,6 +21,20 @@
     replace: "{{ pipeline_dir }}/units.tsv"
   ignore_errors: yes
 
+- name: Replace path to sets.tsv into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: "sets.tsv"
+    replace: "{{ pipeline_dir }}/sets.tsv"
+  ignore_errors: yes
+
+- name: Replace path to patients.tsv into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: "patients.tsv"
+    replace: "{{ pipeline_dir }}/patients.tsv"
+  ignore_errors: yes
+
 - name: Replace path to patients.tsv into the project configuration file
   replace:
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"
