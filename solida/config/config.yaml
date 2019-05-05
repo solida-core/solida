@@ -52,7 +52,7 @@ pipelines:
         label: 'dima'
         description: 'Pipeline to map DNA datasets to a given reference
         genome using widely adopted tools such as BWA and Samtools.'
-        url: "https://bitbucket.org/biopipelines/dima.git"
+        url: "https://github.com/solida-core/dima.git"
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
