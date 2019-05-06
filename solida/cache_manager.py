@@ -36,7 +36,7 @@ class CacheManager:
         ensure_dir(repo_dir)
         if path_is_empty(repo_dir):
             print("Cloning {}".format(pipeline.url))
-            Repo.clone_from(pipeline.url, repo_dir)
+            Repo.clone_from(pipeline.url, repo_dir, recursive=True)
             repo = Repo(repo_dir)
             heads = repo.heads
             master = heads.master
