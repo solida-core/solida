@@ -23,31 +23,6 @@ default_vars:
   snakefile: Snakefile                          # required
   jobs: 2
 pipelines:
-  annotation:
-        label: 'annotation'
-        description: 'Snakemake pipeline to annotate genomic data.'
-        url: "https://bitbucket.org/biopipelines/annotation.git"
-        type: "git"
-        playbook: 'install_pipeline.yaml'
-        playbook_vars_template:
-        # Pipeline dependencies
-                project_environment_file: environment.yml
-        # Project vars
-                project_name: 'noname_project'
-                project_email_address: 'example@example'
-                project_config_file: 'config.yaml'
-        # References
-                references_dir: /path/to/references
-                references_provider: provider
-                references_release: release
-                reference_genome_fasta: genome_fasta_file
-        # Paths
-                kggseq_path: "path/to/software/kggseq.jar"
-                ped_file: ../resources/project.ped
-                blocks_file: ../resources/annot.blocks
-                reheader_file: ../resources/reheader.txt
-                recalibrated_vcf_dir: path/to/recalibrated_vcf_dir
-
   dima:
         label: 'dima'
         description: 'Pipeline to map DNA datasets to a given reference
@@ -64,87 +39,9 @@ pipelines:
         # Paths
                 datasets_dir: /path/to/datasets               # optional
 
-  viper:
-        label: 'viper'
-        description: 'Visualization Pipeline for RNA-Seq data'
-        url: "https://bitbucket.org/cfce/viper.git"
-        type: "git"
-        playbook: 'install_pipeline.yaml'
-        playbook_vars_template:
-        # Paths
-                references_dir: /path/to/references           # optional
-                datasets_dir: /path/to/datasets               # optional
-
-  ride:
-        label: 'ride'
-        description: 'Pipeline to quantify abundances of transcripts from
-        RNA-Seq data'
-        url: "https://bitbucket.org/biopipelines/ride.git"
-        type: "git"
-        playbook: 'install_pipeline.yaml'
-        playbook_vars_template:
-        # Paths
-                references_dir: /path/to/references           # optional
-                datasets_dir: /path/to/datasets               # optional
-
-  sride:
-        label: 'sride'
-        description: 'Snakemake enabled pipeline for smallRNA-Seq identification'
-        url: "https://bitbucket.org/biopipelines/sride.git"
-        type: "git"
-        playbook: 'install_pipeline.yaml'
-        playbook_vars_template:
-                sm_wrappers_repo: https://bitbucket.org/snakemake/snakemake-wrappers.git
-                sm_wrappers_release: 0.27.0
-                # flags to activate specific tasks
-                local_git_4_wrappers: True
-        # Paths
-                references_dir: /path/to/references           # optional
-                datasets_dir: /path/to/datasets               # optional
-
-  sride_data:
-        label: 'sride_data'
-        description: 'Snakemake workflow to produce reference and test data
-        for smallRNA-Seq identification pipeline'
-        url: "https://bitbucket.org/biopipelines/sride_data.git"
-        type: "git"
-        playbook: 'install_pipeline.yaml'
-        playbook_vars_template:
-        # Paths
-                references_dir: /path/to/references           # optional
-                datasets_dir: /path/to/datasets               # optional
-
-  rna-seq-star-deseq2:
-        label: 'rna-seq-star-deseq2'
-        description: 'RNA-seq workflow using STAR and DESeq2'
-        url: "https://github.com/snakemake-workflows/rna-seq-star-deseq2"
-        type: "git"
-        playbook: 'install_pipeline.yaml'
-        playbook_vars_template:
-        # Paths
-                references_dir: /path/to/references           # optional
-                datasets_dir: /path/to/datasets               # optional
-
-  coverest:
-          label: 'coverest'
-          description: 'Snakemake enabled pipeline for coverage estimation'
-          url: "https://bitbucket.org/massiddaMT/coverest.git"
-          type: "git"
-          playbook: 'install_pipeline.yaml'
-          playbook_vars_template:
-                  project_environment_file: environment.yaml
-          # Paths
-                  references_dir: /path/to/references           # optional
-                  _provider_: reference_genome_provider (es. ncbi)
-                  _release_: reference_genome_release (es. hg19)
-                  _genome_fasta: reference_genome_fasta_filename (*.fasta)
-                  datasets_dir: /path/to/datasets               # optional
-                  gatk_dir: path/to/software/gatk-3.7                    # optional
-
   diva:
         label: 'diva'
-        description: 'Snakemake pipeline to identify genomic variants from exome data,
-using GATK4 variant calling following the best practices guide from BroadInstitute.'
+        description: 'DiVA (DNA Variant Analysis) is a pipeline for Next-Generation Sequencing Exome data analysis'
         url: "https://github.com/solida-core/diva.git"
         type: "git"
         playbook: 'install_pipeline.yaml'
@@ -164,3 +61,26 @@ using GATK4 variant calling following the best practices guide from BroadInstitu
                 blocks_file: ../resources/annot.blocks
                 reheader_file: ../resources/reheader.txt
                 recalibrated_vcf_dir: path/to/recalibrated_vcf_dir
+
+  ride:
+        label: 'ride'
+        description: 'Pipeline to quantify abundances of transcripts from
+        RNA-Seq data'
+        url: "https://github.com/solida-core/ride.git"
+        type: "git"
+        playbook: 'install_pipeline.yaml'
+        playbook_vars_template:
+        # Paths
+                references_dir: /path/to/references           # optional
+                datasets_dir: /path/to/datasets               # optional
+
+  sride:
+        label: 'sride'
+        description: 'Snakemake enabled pipeline for smallRNA-Seq identification'
+        url: "https://github.com/solida-core/sride.git"
+        type: "git"
+        playbook: 'install_pipeline.yaml'
+        playbook_vars_template:
+        # Paths
+                references_dir: /path/to/references           # optional
+                datasets_dir: /path/to/datasets               # optional
