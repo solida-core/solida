@@ -35,13 +35,6 @@
     replace: "{{ pipeline_dir }}/patients.tsv"
   ignore_errors: yes
 
-- name: Replace path to patients.tsv into the project configuration file
-  replace:
-    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
-    regexp: "patients.tsv"
-    replace: "{{ pipeline_dir }}/patients.tsv"
-  ignore_errors: yes
-
 - name: Replace path_to_references_data into the project configuration file
   replace:
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"
