@@ -33,5 +33,5 @@ deploy:
     secure: ktKsH09bxc9t4OI5d4xr4/IeKU21I1/PLXVWbsgOB0j+3TJnAzph0Dz4LA6/V1PCDS5szSax+GvOffQ4SkvB+q9QwkFyP8Oq4ey6BcgsRZHknAiBtxSGaT+cftJUIzascnDyXXYO6gX0uOK0juBXPobKrJgLFRYU2h3wfn0H/b1zlkdWF54WBaHtOi1Vz42KbKoqwiPQfiUdAbaOUXRQwT6Kxm3eqPhO9mD9yPgLMaFIpDp1hWZK5pLGRdk5plxqIn+l5hE2U7Av/HUnzvE6vMFWyEb8lv8CI+WsdJCJ9Wgw8oBA+qKX8pbrwuUIogKGMFXWdaEWU+nObUymezf8tgciFCZ7k4VDupA67d7hjb9+uf7iE5PI0KymBvzm/i/dVKkXZ5Ram5cAmsxhup/NXvFVgJSIebavLn86VOegMceTA38FPedf4eSC0uyheQqZdSwR9VdlWbPGjnYhz+ccL2beS4UZ0t4gOMeRFJrxQ0XiDLUe1BUE0gOzTzIu2exEs9XSgK3edgaSM8/wrIj0Y2DaWAnnqr62l0AVJ/JD/5aMjDpiIVEYoM8X4hn2MRCAhbWKDGngHGowZX2M1dRfLrGiAdcPIxhEa+WfeM3QyqTnQBo2aqmsRiqeoMzw8E/5Nlkt6/qGXy62TjKKY9p2dnSppgAE0XkGMLa+FujYKBQ=
   on:
     tags: true
-    repo: gmauro/solida
+    repo: solida-core/solida
     condition: $TRAVIS_PYTHON_VERSION = "3.6"
