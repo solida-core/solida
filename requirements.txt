@@ -1,4 +1,4 @@
-ansible==2.4.6.0
+ansible==2.6.18
 appdirs==1.4.3
 comoda==0.3.7
 gitpython==2.1.10
