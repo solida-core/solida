@@ -11,15 +11,14 @@
     dest: "{{ pipeline_dir }}"
 
 - name: Create Conda virtual environment
-# conda env create --yes -q --force -n name --file
-  shell: "conda env create --force -q -n {{ project_name }} \
+  shell: "mamba env create --force -q -n {{ project_name }} \
          --file core_environment.yml"
   args:
     chdir: "{{ pipeline_dir }}"
   when: create_venv
 
 - name: Install pipeline dependencies
-  shell: "conda env update -q -n {{ project_name }} \
+  shell: "mamba env update -q -n {{ project_name }} \
          --file {{ project_environment_file }} "
   args:
     chdir: "{{ pipeline_dir }}"
