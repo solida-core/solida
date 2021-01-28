@@ -13,8 +13,12 @@ pip install solida
 
 ## Requirements
 
-To run Solida, Conda must be present in your computer.    
-To install it, see [https://conda.io/miniconda.html](https://conda.io/miniconda.html) 
+To run Solida, Conda e Mamba must be presents in your computer.    
+To install Conda, see [https://conda.io/miniconda.html](https://conda.io/miniconda.html) 
+To install Mamba, see [https://github.com/mamba-org/mamba](https://github.com/mamba-org/mamba)
+```bash
+conda install -c conda-forge mamba```
+
 
 ## Usage
 
