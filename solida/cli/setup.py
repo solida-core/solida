@@ -24,11 +24,11 @@ def make_parser(parser):
                         help='Profile file label',
                         default='',
                         required=True)
-    parser.add_argument('--deploy',
+    parser.add_argument('-d', '--deploy',
                         dest='deployment',
                         action='store_true',
                         help="Trigger the pipeline's deployment")
-    parser.add_argument('--create-profile',
+    parser.add_argument('-c', '--create-profile',
                         dest='create_profile',
                         action='store_true',
                         help="Trigger the profile's writing")

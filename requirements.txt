@@ -1,6 +1,7 @@
-ansible==2.7.16
-appdirs==1.4.3
-comoda==0.4.0
+ansible==9.3.0
+appdirs==1.4.4
+comoda==0.4.2
 gitpython==2.1.10
 gitdb2==2.0.6
+
 
