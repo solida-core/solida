@@ -21,6 +21,13 @@
     replace: "{{ pipeline_dir }}/units.tsv"
   ignore_errors: yes
 
+- name: Replace path to reheader.tsv into the project configuration file
+  replace:
+    dest: "{{ pipeline_dir }}/{{ project_config_file }}"
+    regexp: "reheader.tsv"
+    replace: "{{ pipeline_dir }}/reheader.tsv"
+  ignore_errors: yes
+
 - name: Replace path to sets.tsv into the project configuration file
   replace:
     dest: "{{ pipeline_dir }}/{{ project_config_file }}"

@@ -21,7 +21,7 @@ default_vars:
   tmp_dir: path/to/tmp
   # Snakemake related
   snakefile: Snakefile                          # required
-  jobs: 2
+  jobs: 10
 pipelines:
   dima:
         label: 'dima'
@@ -70,6 +70,8 @@ pipelines:
         type: "git"
         playbook: 'install_pipeline.yaml'
         playbook_vars_template:
+         # Pipeline dependencies
+                project_environment_file: environment.yaml
         # Paths
                 references_dir: /path/to/references           # optional
                 datasets_dir: /path/to/datasets               # optional

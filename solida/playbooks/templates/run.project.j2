@@ -76,9 +76,8 @@ else
 fi
 
 snakemake --snakefile ${SNAKEFILE} \
-      --use-conda \
+      --software-deployment-method conda \
       --conda-frontend mamba \
-      --stats "stats_"${SM_WORK_DIR}".json" \
       --configfile ${CONFIG_FILEPATH} \
       --directory ${SM_WORK_DIR} \
       --printshellcmds \

@@ -47,13 +47,15 @@ class CacheManager:
             requirements_path = os.path.join(repo_dir, self.core_environment_file)
             if not path_exists(requirements_path):
                 data = {'channels': ['bioconda', 'conda-forge', 'defaults'],
-                        'dependencies': ['python==3.7', 'pip']}
+                        'dependencies': ['python==3.12', 'pip']}
                 dump(data, requirements_path)
 
             requirements_path = os.path.join(repo_dir, self.environment_file)
             if not path_exists(requirements_path):
                 data = {'channels': ['bioconda', 'conda-forge', 'defaults'],
-                        'dependencies': ['snakemake', 'drmaa==0.7.9']}
+                        'dependencies': ['snakemake==8.10.0', 'drmaa==0.7.9',
+                                         'snakemake-executor-plugin-drmaa==0.1.4', 
+                                         'snakemake-executor-plugin-cluster-generic==1.0.9']}
                 dump(data, requirements_path)
 
             print("commit id: {}".format(master.commit))
